@@ -61,7 +61,7 @@ import logoUrl from '../img/logo.claro.png';
 type View = 'dashboard' | 'session' | 'venues' | 'models' | 'propellers' | 'rubber' | 'motors' | 'flights' | 'diagnosis' | 'charts' | 'optimals';
 
 const navItems: Array<{ id: View; label: string; Icon: typeof Home }> = [
-  { id: 'dashboard', label: 'Dashboard', Icon: Home },
+  { id: 'dashboard', label: 'Tablero', Icon: Home },
   { id: 'session', label: 'Sesion', Icon: ClipboardList },
   { id: 'venues', label: 'Salones', Icon: MapPin },
   { id: 'models', label: 'Modelos', Icon: Plane },
@@ -321,7 +321,7 @@ function App() {
         <div className="brand">
           <img src={logoUrl} alt="" className="brand-logo" />
           <div>
-            <strong>Indoor Flight Optimizer</strong>
+            <strong>Indoor Flight Optimizador</strong>
             <span>F1M offline-first</span>
           </div>
         </div>
@@ -399,7 +399,7 @@ function AuthGate({ busy, error, onConnect }: { busy: boolean; error: string; on
       <section className="auth-panel">
         <img src={logoUrl} alt="" className="auth-logo" />
         <div>
-          <h1>Indoor Flight Optimizer</h1>
+          <h1>Indoor Flight Optimizador</h1>
           <p>Acceso restringido. Conectá tu cuenta Google autorizada para usar la app y sincronizar datos con Drive.</p>
         </div>
         <button className="primary auth-button" type="button" onClick={onConnect} disabled={busy}>
