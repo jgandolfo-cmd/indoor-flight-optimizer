@@ -2,7 +2,7 @@ import { mockData } from '../domain/mockData';
 import type { AppData } from '../domain/types';
 
 const CLIENT_ID = '405210962088-n6lptcol9ibfkc99chevg4idjof5jf4b.apps.googleusercontent.com';
-const SCOPES = 'https://www.googleapis.com/auth/drive.appdata';
+const SCOPES = 'openid email profile https://www.googleapis.com/auth/drive.appdata';
 const DATA_FILENAME = 'indoor-flight-optimizer-data.json';
 
 type TokenClient = {
@@ -12,6 +12,12 @@ type TokenClient = {
 type TokenResponse = {
   access_token?: string;
   error?: string;
+};
+
+export type GoogleUserProfile = {
+  email: string;
+  name?: string;
+  picture?: string;
 };
 
 declare global {
@@ -95,6 +101,24 @@ export async function requestDriveAccessToken(prompt = ''): Promise<string> {
 
     tokenClient.requestAccessToken({ prompt });
   });
+}
+
+export async function loadGoogleUserProfile(accessToken: string): Promise<GoogleUserProfile> {
+  const response = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`No se pudo validar usuario Google (${response.status}).`);
+  }
+
+  const profile = await response.json() as GoogleUserProfile;
+  if (!profile.email) {
+    throw new Error('Google no devolvio email del usuario.');
+  }
+  return profile;
 }
 
 async function driveFetch<T>(accessToken: string, url: string, init: RequestInit = {}): Promise<T> {

@@ -11,6 +11,7 @@ import {
   HardDrive,
   Home,
   LineChart,
+  Lock,
   MapPin,
   Plane,
   Fan,
@@ -53,7 +54,7 @@ import type {
   RpmSample,
   SessionObjective,
 } from './domain/types';
-import { loadDataFromDrive, requestDriveAccessToken, saveDataToDrive } from './storage/googleDriveStorage';
+import { loadDataFromDrive, loadGoogleUserProfile, requestDriveAccessToken, saveDataToDrive, type GoogleUserProfile } from './storage/googleDriveStorage';
 import { loadAppData, resetAppData, saveAppData } from './storage/localStorage';
 import logoUrl from '../img/logo.claro.png';
 
@@ -156,6 +157,8 @@ const sessionObjectiveLabels: Record<SessionObjective, string> = {
   competencia: 'Competencia',
 };
 
+const ALLOWED_USERS = ['jgandolfo@gmail.com'];
+
 function App() {
   const [view, setView] = useState<View>('dashboard');
   const [data, setData] = useState<AppData>(() => loadAppData());
@@ -163,6 +166,8 @@ function App() {
   const [driveAccessToken, setDriveAccessToken] = useState<string>();
   const [driveConnected, setDriveConnected] = useState(false);
   const [driveBusy, setDriveBusy] = useState(false);
+  const [googleUser, setGoogleUser] = useState<GoogleUserProfile>();
+  const [authError, setAuthError] = useState('');
   const importRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -193,13 +198,27 @@ function App() {
 
   const connectGoogleDrive = async () => {
     setDriveBusy(true);
+    setAuthError('');
     try {
       const token = await requestDriveAccessToken('consent');
+      const profile = await loadGoogleUserProfile(token);
+      if (!ALLOWED_USERS.includes(profile.email.toLowerCase())) {
+        setDriveAccessToken(undefined);
+        setDriveConnected(false);
+        setGoogleUser(undefined);
+        const text = `Usuario no autorizado: ${profile.email}`;
+        setAuthError(text);
+        setMessage(text);
+        return;
+      }
       setDriveAccessToken(token);
       setDriveConnected(true);
-      setMessage('Google Drive conectado.');
+      setGoogleUser(profile);
+      setMessage(`Google Drive conectado: ${profile.email}`);
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : 'No se pudo conectar Google Drive.');
+      const text = error instanceof Error ? error.message : 'No se pudo conectar Google Drive.';
+      setAuthError(text);
+      setMessage(text);
     } finally {
       setDriveBusy(false);
     }
@@ -208,8 +227,13 @@ function App() {
   const ensureDriveToken = async () => {
     if (driveAccessToken) return driveAccessToken;
     const token = await requestDriveAccessToken('');
+    const profile = await loadGoogleUserProfile(token);
+    if (!ALLOWED_USERS.includes(profile.email.toLowerCase())) {
+      throw new Error(`Usuario no autorizado: ${profile.email}`);
+    }
     setDriveAccessToken(token);
     setDriveConnected(true);
+    setGoogleUser(profile);
     return token;
   };
 
@@ -280,6 +304,16 @@ function App() {
     );
     downloadTextFile(`vuelos-${new Date().toISOString().slice(0, 10)}.csv`, csv, 'text/csv');
   };
+
+  if (!driveConnected || !googleUser || !ALLOWED_USERS.includes(googleUser.email.toLowerCase())) {
+    return (
+      <AuthGate
+        busy={driveBusy}
+        error={authError}
+        onConnect={() => void connectGoogleDrive()}
+      />
+    );
+  }
 
   return (
     <div className="app-shell">
@@ -358,6 +392,28 @@ type ChartPoint = {
   y: number;
   label?: string;
 };
+
+function AuthGate({ busy, error, onConnect }: { busy: boolean; error: string; onConnect: () => void }) {
+  return (
+    <main className="auth-shell">
+      <section className="auth-panel">
+        <img src={logoUrl} alt="" className="auth-logo" />
+        <div>
+          <h1>Indoor Flight Optimizer</h1>
+          <p>Acceso restringido. Conectá tu cuenta Google autorizada para usar la app y sincronizar datos con Drive.</p>
+        </div>
+        <button className="primary auth-button" type="button" onClick={onConnect} disabled={busy}>
+          <Lock size={18} />
+          {busy ? 'Conectando...' : 'Ingresar con Google'}
+        </button>
+        {error && <div className="warning">{error}</div>}
+        <p className="auth-note">
+          Los datos se guardan en tu Google Drive dentro de la carpeta privada de la app. Si no estas en la lista de usuarios autorizados, la app no se habilita.
+        </p>
+      </section>
+    </main>
+  );
+}
 
 function Dashboard({
   data,

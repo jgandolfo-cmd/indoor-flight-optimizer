@@ -168,6 +168,40 @@ h3 {
   padding: 10px 12px;
 }
 
+.auth-shell {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 24px;
+}
+
+.auth-panel {
+  background: #ffffff;
+  border: 1px solid #d8dee4;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgb(31 41 51 / 10%);
+  display: grid;
+  gap: 16px;
+  max-width: 520px;
+  padding: 28px;
+}
+
+.auth-logo {
+  height: 64px;
+  object-fit: contain;
+  width: 64px;
+}
+
+.auth-button {
+  min-height: 44px;
+}
+
+.auth-note {
+  color: #5b6773;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(140px, 1fr));
