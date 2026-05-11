@@ -8,6 +8,7 @@ import {
   FileDown,
   FileUp,
   Gauge,
+  HardDrive,
   Home,
   LineChart,
   MapPin,
@@ -52,6 +53,7 @@ import type {
   RpmSample,
   SessionObjective,
 } from './domain/types';
+import { loadDataFromDrive, requestDriveAccessToken, saveDataToDrive } from './storage/googleDriveStorage';
 import { loadAppData, resetAppData, saveAppData } from './storage/localStorage';
 import logoUrl from '../img/logo.claro.png';
 
@@ -158,6 +160,9 @@ function App() {
   const [view, setView] = useState<View>('dashboard');
   const [data, setData] = useState<AppData>(() => loadAppData());
   const [message, setMessage] = useState('');
+  const [driveAccessToken, setDriveAccessToken] = useState<string>();
+  const [driveConnected, setDriveConnected] = useState(false);
+  const [driveBusy, setDriveBusy] = useState(false);
   const importRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -184,6 +189,58 @@ function App() {
   const setDataWithMessage = (next: AppData, nextMessage: string) => {
     setData(next);
     setMessage(nextMessage);
+  };
+
+  const connectGoogleDrive = async () => {
+    setDriveBusy(true);
+    try {
+      const token = await requestDriveAccessToken('consent');
+      setDriveAccessToken(token);
+      setDriveConnected(true);
+      setMessage('Google Drive conectado.');
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : 'No se pudo conectar Google Drive.');
+    } finally {
+      setDriveBusy(false);
+    }
+  };
+
+  const ensureDriveToken = async () => {
+    if (driveAccessToken) return driveAccessToken;
+    const token = await requestDriveAccessToken('');
+    setDriveAccessToken(token);
+    setDriveConnected(true);
+    return token;
+  };
+
+  const saveDrive = async () => {
+    setDriveBusy(true);
+    try {
+      const token = await ensureDriveToken();
+      await saveDataToDrive(token, data);
+      setMessage('Datos guardados en Google Drive.');
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : 'No se pudo guardar en Google Drive.');
+    } finally {
+      setDriveBusy(false);
+    }
+  };
+
+  const loadDrive = async () => {
+    setDriveBusy(true);
+    try {
+      const token = await ensureDriveToken();
+      const loaded = await loadDataFromDrive(token);
+      if (!loaded) {
+        setMessage('No hay datos guardados en Google Drive para esta app.');
+        return;
+      }
+      setDataWithMessage(loaded, 'Datos cargados desde Google Drive.');
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : 'No se pudo cargar desde Google Drive.');
+    } finally {
+      setDriveBusy(false);
+    }
   };
 
   const importJson = async (file: File | undefined) => {
@@ -259,6 +316,15 @@ function App() {
             </button>
             <button type="button" onClick={() => importRef.current?.click()}>
               <FileUp size={17} /> Importar
+            </button>
+            <button type="button" onClick={() => void connectGoogleDrive()} disabled={driveBusy}>
+              <HardDrive size={17} /> {driveConnected ? 'Drive conectado' : 'Conectar Drive'}
+            </button>
+            <button type="button" onClick={() => void loadDrive()} disabled={driveBusy}>
+              <FileDown size={17} /> Cargar Drive
+            </button>
+            <button type="button" onClick={() => void saveDrive()} disabled={driveBusy}>
+              <FileUp size={17} /> Guardar Drive
             </button>
             <button type="button" onClick={() => setDataWithMessage(resetAppData(), 'Datos mock restaurados.')}>
               <RotateCcw size={17} /> Reset
