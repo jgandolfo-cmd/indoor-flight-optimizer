@@ -1,0 +1,2454 @@
+{
+  "venues": [
+    {
+      "id": "venue-salon-chico-72",
+      "name": "Salón Chico 7.2 m",
+      "city": "Rafaela",
+      "ceilingHeightM": 7.2,
+      "usableLengthM": 24,
+      "usableWidthM": 14,
+      "notes": "Techo bajo. Penaliza exceso de torque inicial; ideal para probar back-off y paso máximo VP."
+    },
+    {
+      "id": "venue-gimnasio-bajo-85",
+      "name": "Gimnasio Bajo 8.5 m",
+      "city": "Buenos Aires",
+      "ceilingHeightM": 8.5,
+      "usableLengthM": 32,
+      "usableWidthM": 18,
+      "notes": "Volumen bajo-medio. Sirve para comparar control de techo."
+    },
+    {
+      "id": "venue-galpon-medio-12",
+      "name": "Galpón Medio 12 m",
+      "city": "Rafaela",
+      "ceilingHeightM": 12,
+      "usableLengthM": 42,
+      "usableWidthM": 24,
+      "notes": "Volumen cómodo para F1M. Permite vuelo más largo sin contacto frecuente."
+    },
+    {
+      "id": "venue-hangar-alto-18",
+      "name": "Hangar Alto 18 m",
+      "city": "Morón",
+      "ceilingHeightM": 18,
+      "usableLengthM": 55,
+      "usableWidthM": 32,
+      "notes": "Techo alto. Útil para probar motores de más torque y ascensos prolongados."
+    }
+  ],
+  "models": [
+    {
+      "id": "model-f1m-azul",
+      "name": "F1M Azul",
+      "wingspanMm": 455,
+      "weightG": 3.15,
+      "wingAreaDm2": 13.8,
+      "notes": "Modelo baseline con VP. Estable; útil para comparar motores."
+    },
+    {
+      "id": "model-f1m-rojo",
+      "name": "F1M Rojo",
+      "wingspanMm": 460,
+      "weightG": 3.05,
+      "wingAreaDm2": 14.1,
+      "notes": "Modelo liviano, muy sensible al torque inicial y al techo."
+    },
+    {
+      "id": "model-f1m-verde",
+      "name": "F1M Verde",
+      "wingspanMm": 452,
+      "weightG": 3.35,
+      "wingAreaDm2": 13.4,
+      "notes": "Modelo algo pesado; pide más torque o menor paso máximo."
+    },
+    {
+      "id": "model-f1m-vp-test",
+      "name": "F1M VP Test",
+      "wingspanMm": 458,
+      "weightG": 3.08,
+      "wingAreaDm2": 14,
+      "notes": "Modelo para ensayo de resorte y transición de paso variable."
+    },
+    {
+      "id": "model-f1m-fija",
+      "name": "F1M Hélice Fija",
+      "wingspanMm": 450,
+      "weightG": 3.28,
+      "wingAreaDm2": 13.6,
+      "notes": "Modelo con hélice fija; sirve para aislar motor sin VP."
+    }
+  ],
+  "rubberBatches": [
+    {
+      "id": "batch-tss-2026-a",
+      "name": "TSS 2026 A",
+      "manufacturer": "Tan Super Sport",
+      "widthMm": 1.5,
+      "thicknessMm": 1,
+      "purchaseDate": "2026-05-01",
+      "notes": "Goma comercial nueva simulada. Lote base."
+    },
+    {
+      "id": "batch-tss-2026-b",
+      "name": "TSS 2026 B",
+      "manufacturer": "Tan Super Sport",
+      "widthMm": 1.4,
+      "thicknessMm": 1,
+      "purchaseDate": "2026-05-01",
+      "notes": "Goma comercial nueva simulada, algo más fina."
+    },
+    {
+      "id": "batch-tss-2026-c",
+      "name": "TSS 2026 C",
+      "manufacturer": "Tan Super Sport",
+      "widthMm": 1.6,
+      "thicknessMm": 1,
+      "purchaseDate": "2026-05-01",
+      "notes": "Goma comercial nueva simulada, más torque."
+    },
+    {
+      "id": "batch-ref-may99",
+      "name": "Referencia May99",
+      "manufacturer": "Tan II ref",
+      "widthMm": 1.5,
+      "thicknessMm": 1,
+      "purchaseDate": "1999-05-01",
+      "notes": "Referencia sintética para comparar con configuración histórica. No es medición real."
+    }
+  ],
+  "motors": [
+    {
+      "id": "motor-132-390",
+      "name": "Motor 1.32g 390mm",
+      "batchId": "batch-tss-2026-c",
+      "loopLengthMm": 390,
+      "weightG": 1.32,
+      "strands": 1,
+      "lubricant": "Silicona",
+      "notes": "Motor más corto/grueso relativo. Más torque inicial; útil para modelo pesado o techo alto."
+    },
+    {
+      "id": "motor-138-410",
+      "name": "Motor 1.38g 410mm",
+      "batchId": "batch-tss-2026-a",
+      "loopLengthMm": 410,
+      "weightG": 1.38,
+      "strands": 1,
+      "lubricant": "Silicona",
+      "notes": "Motor intermedio, tiende a buen ascenso en techo medio."
+    },
+    {
+      "id": "motor-142-430",
+      "name": "Motor 1.42g 430mm",
+      "batchId": "batch-tss-2026-a",
+      "loopLengthMm": 430,
+      "weightG": 1.42,
+      "strands": 1,
+      "lubricant": "Silicona",
+      "notes": "Motor base de pruebas F1M."
+    },
+    {
+      "id": "motor-145-445",
+      "name": "Motor 1.45g 445mm",
+      "batchId": "batch-tss-2026-a",
+      "loopLengthMm": 445,
+      "weightG": 1.45,
+      "strands": 1,
+      "lubricant": "Silicona",
+      "notes": "Cerca del límite práctico. Baseline competitivo simulado."
+    },
+    {
+      "id": "motor-148-450",
+      "name": "Motor 1.48g 450mm",
+      "batchId": "batch-tss-2026-a",
+      "loopLengthMm": 450,
+      "weightG": 1.48,
+      "strands": 1,
+      "lubricant": "Silicona",
+      "notes": "Motor legal F1M cercano al máximo; puede tocar techo bajo."
+    },
+    {
+      "id": "motor-148-470",
+      "name": "Motor 1.48g 470mm",
+      "batchId": "batch-tss-2026-b",
+      "loopLengthMm": 470,
+      "weightG": 1.48,
+      "strands": 1,
+      "lubricant": "Silicona",
+      "notes": "Motor largo/fino para descarga suave."
+    },
+    {
+      "id": "motor-149-500",
+      "name": "Motor 1.49g 500mm",
+      "batchId": "batch-tss-2026-b",
+      "loopLengthMm": 500,
+      "weightG": 1.49,
+      "strands": 1,
+      "lubricant": "Silicona",
+      "notes": "Muy largo/fino; puede dejar vueltas remanentes si falta torque."
+    },
+    {
+      "id": "motor-150-420",
+      "name": "Motor 1.50g 420mm",
+      "batchId": "batch-tss-2026-c",
+      "loopLengthMm": 420,
+      "weightG": 1.5,
+      "strands": 1,
+      "lubricant": "Silicona",
+      "notes": "Límite F1M. Alto torque; probar solo con cuidado."
+    },
+    {
+      "id": "motor-151-420-ilegal",
+      "name": "Motor 1.51g 420mm ILEGAL",
+      "batchId": "batch-tss-2026-c",
+      "loopLengthMm": 420,
+      "weightG": 1.51,
+      "strands": 1,
+      "lubricant": "Silicona",
+      "notes": "Caso para probar alerta de reglamento: excede 1.5 g."
+    },
+    {
+      "id": "motor-136-460",
+      "name": "Motor 1.36g 460mm",
+      "batchId": "batch-tss-2026-b",
+      "loopLengthMm": 460,
+      "weightG": 1.36,
+      "strands": 1,
+      "lubricant": "Silicona",
+      "notes": "Motor liviano y largo; puede sostener suave pero no trepar."
+    },
+    {
+      "id": "motor-ref-danjo-145-329",
+      "name": "Referencia Danjo 1.45g 329mm",
+      "batchId": "batch-ref-may99",
+      "loopLengthMm": 329,
+      "weightG": 1.45,
+      "strands": 1,
+      "lubricant": "Desconocido",
+      "notes": "Referencia sintética basada en configuración publicada; no usar como receta directa."
+    },
+    {
+      "id": "motor-training-120-430",
+      "name": "Motor entrenamiento 1.20g 430mm",
+      "batchId": "batch-tss-2026-a",
+      "loopLengthMm": 430,
+      "weightG": 1.2,
+      "strands": 1,
+      "lubricant": "Silicona",
+      "notes": "Motor suave para trimado inicial, no competitivo."
+    }
+  ],
+  "flights": [
+    {
+      "id": "flight-001-techo-temprano-rem-alto",
+      "date": "2026-05-10T10:18:00Z",
+      "venueId": "venue-gimnasio-bajo-85",
+      "modelId": "model-f1m-rojo",
+      "motorId": "motor-148-450",
+      "turnsLoaded": 1450,
+      "backOff": 40,
+      "durationSec": 265,
+      "maxAltitudeM": 8.5,
+      "touchedCeiling": "light",
+      "timeToCeilingSec": 38,
+      "ceilingContactDurationSec": 14,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "left",
+      "climb": "too_aggressive",
+      "stability": "stable",
+      "landing": "soft",
+      "propType": "variable_pitch",
+      "rpmVisual": "fast",
+      "rpmInitial": 5200,
+      "rpmMid": 3800,
+      "rpmFinal": 2500,
+      "rpmTrend": "fast_decay",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 5200,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 38,
+          "rpm": 4750,
+          "note": "primer techo"
+        },
+        {
+          "timeSec": 130,
+          "rpm": 3500,
+          "note": "medio"
+        },
+        {
+          "timeSec": 265,
+          "rpm": 2500,
+          "note": "final"
+        }
+      ],
+      "maxPitchMm": 620,
+      "minPitchMm": 430,
+      "springHardness": 5,
+      "vpTransitionObserved": "normal",
+      "vpMechanismMode": "unknown",
+      "vpTransitionTimeSec": 75,
+      "rpmBeforeVpTransition": 4300,
+      "rpmAfterVpTransition": 3600,
+      "launchTorque": 0.58,
+      "descentStartSec": 205,
+      "descentStartTorque": 0.11,
+      "turnsAtDescentStart": 420,
+      "remainingTurns": 280,
+      "notes": "Toca techo temprano y aterriza con 19.9% de vueltas netas remanentes. Debe priorizar control inicial.",
+      "vpPropeller": {
+        "maxPitchMm": 620,
+        "minPitchMm": 430,
+        "springHardness": 5
+      }
+    },
+    {
+      "id": "flight-002-techo-temprano-rem-bajo",
+      "date": "2026-05-10T10:36:00Z",
+      "venueId": "venue-gimnasio-bajo-85",
+      "modelId": "model-f1m-azul",
+      "motorId": "motor-145-445",
+      "turnsLoaded": 1380,
+      "backOff": 70,
+      "durationSec": 305,
+      "maxAltitudeM": 8.5,
+      "touchedCeiling": "light",
+      "timeToCeilingSec": 62,
+      "ceilingContactDurationSec": 5,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "left",
+      "climb": "too_aggressive",
+      "stability": "stable",
+      "landing": "soft",
+      "propType": "variable_pitch",
+      "rpmVisual": "normal",
+      "rpmInitial": 4700,
+      "rpmMid": 3100,
+      "rpmFinal": 1800,
+      "rpmTrend": "fast_decay",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 4700,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 62,
+          "rpm": 3900,
+          "note": "techo suave"
+        },
+        {
+          "timeSec": 180,
+          "rpm": 2600,
+          "note": "medio"
+        },
+        {
+          "timeSec": 305,
+          "rpm": 1800,
+          "note": "final"
+        }
+      ],
+      "maxPitchMm": 650,
+      "minPitchMm": 440,
+      "springHardness": 5,
+      "vpTransitionObserved": "normal",
+      "vpMechanismMode": "known",
+      "vpTransitionTimeSec": 90,
+      "rpmBeforeVpTransition": 3600,
+      "rpmAfterVpTransition": 3000,
+      "launchTorque": 0.49,
+      "descentStartSec": 235,
+      "descentStartTorque": 0.08,
+      "turnsAtDescentStart": 150,
+      "remainingTurns": 95,
+      "notes": "Toca techo pero queda solo 7.3% de remanente. Está cerca, ajuste fino de distribución inicial.",
+      "vpPropeller": {
+        "maxPitchMm": 650,
+        "minPitchMm": 440,
+        "springHardness": 5
+      }
+    },
+    {
+      "id": "flight-003-rem-alto-rpm-lenta",
+      "date": "2026-05-10T10:54:00Z",
+      "venueId": "venue-gimnasio-bajo-85",
+      "modelId": "model-f1m-azul",
+      "motorId": "motor-142-430",
+      "turnsLoaded": 1200,
+      "backOff": 100,
+      "durationSec": 230,
+      "maxAltitudeM": 4.8,
+      "touchedCeiling": "false",
+      "ceilingContactDurationSec": 0,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "left",
+      "climb": "low",
+      "stability": "stable",
+      "landing": "prop_still_turning",
+      "propType": "variable_pitch",
+      "rpmVisual": "slow",
+      "rpmInitial": 3600,
+      "rpmMid": 2100,
+      "rpmFinal": 1150,
+      "rpmTrend": "fast_decay",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 3600,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 115,
+          "rpm": 2100,
+          "note": "medio"
+        },
+        {
+          "timeSec": 230,
+          "rpm": 1150,
+          "note": "final"
+        }
+      ],
+      "maxPitchMm": 620,
+      "minPitchMm": 470,
+      "springHardness": 5,
+      "vpTransitionObserved": "late",
+      "vpMechanismMode": "known",
+      "vpTransitionTimeSec": 150,
+      "rpmBeforeVpTransition": 2300,
+      "rpmAfterVpTransition": 1750,
+      "launchTorque": 0.36,
+      "descentStartSec": 160,
+      "descentStartTorque": 0.07,
+      "turnsAtDescentStart": 300,
+      "remainingTurns": 260,
+      "notes": "No usa techo, cae con muchas vueltas y RPM final lenta. Debe sospechar paso mínimo alto o fricción antes que motor.",
+      "vpPropeller": {
+        "maxPitchMm": 620,
+        "minPitchMm": 470,
+        "springHardness": 5
+      }
+    },
+    {
+      "id": "flight-004-rem-alto-rpm-rapida",
+      "date": "2026-05-10T11:12:00Z",
+      "venueId": "venue-gimnasio-bajo-85",
+      "modelId": "model-f1m-azul",
+      "motorId": "motor-142-430",
+      "turnsLoaded": 1240,
+      "backOff": 90,
+      "durationSec": 245,
+      "maxAltitudeM": 5.2,
+      "touchedCeiling": "false",
+      "ceilingContactDurationSec": 0,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "left",
+      "climb": "low",
+      "stability": "stable",
+      "landing": "prop_still_turning",
+      "propType": "variable_pitch",
+      "rpmVisual": "fast",
+      "rpmInitial": 4600,
+      "rpmMid": 4100,
+      "rpmFinal": 3600,
+      "rpmTrend": "slow_decay",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 4600,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 120,
+          "rpm": 4100,
+          "note": "medio"
+        },
+        {
+          "timeSec": 245,
+          "rpm": 3600,
+          "note": "final"
+        }
+      ],
+      "maxPitchMm": 600,
+      "minPitchMm": 360,
+      "springHardness": 4,
+      "vpTransitionObserved": "early",
+      "vpMechanismMode": "known",
+      "vpTransitionTimeSec": 70,
+      "rpmBeforeVpTransition": 4300,
+      "rpmAfterVpTransition": 4000,
+      "launchTorque": 0.39,
+      "descentStartSec": 168,
+      "descentStartTorque": 0.08,
+      "turnsAtDescentStart": 340,
+      "remainingTurns": 275,
+      "notes": "No usa techo, remanente alto y RPM final alta: hélice descarga sin empuje. Subir paso mínimo.",
+      "vpPropeller": {
+        "maxPitchMm": 600,
+        "minPitchMm": 360,
+        "springHardness": 4
+      }
+    },
+    {
+      "id": "flight-005-rem-alto-rpm-normal",
+      "date": "2026-05-10T11:30:00Z",
+      "venueId": "venue-galpon-medio-12",
+      "modelId": "model-f1m-azul",
+      "motorId": "motor-149-500",
+      "turnsLoaded": 1500,
+      "backOff": 120,
+      "durationSec": 390,
+      "maxAltitudeM": 7,
+      "touchedCeiling": "false",
+      "ceilingContactDurationSec": 0,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "left",
+      "climb": "low",
+      "stability": "stable",
+      "landing": "soft",
+      "propType": "variable_pitch",
+      "rpmVisual": "normal",
+      "rpmInitial": 4200,
+      "rpmMid": 3000,
+      "rpmFinal": 2200,
+      "rpmTrend": "slow_decay",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 4200,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 200,
+          "rpm": 3000,
+          "note": "medio"
+        },
+        {
+          "timeSec": 390,
+          "rpm": 2200,
+          "note": "final"
+        }
+      ],
+      "maxPitchMm": 650,
+      "minPitchMm": 430,
+      "springHardness": 5,
+      "vpTransitionObserved": "normal",
+      "vpMechanismMode": "known",
+      "vpTransitionTimeSec": 140,
+      "rpmBeforeVpTransition": 3300,
+      "rpmAfterVpTransition": 2800,
+      "launchTorque": 0.42,
+      "descentStartSec": 300,
+      "descentStartTorque": 0.08,
+      "turnsAtDescentStart": 410,
+      "remainingTurns": 310,
+      "notes": "Motor largo/fino: remanente alto, rpm normal, estable y no usa techo. Conviene acortar motor manteniendo masa.",
+      "vpPropeller": {
+        "maxPitchMm": 650,
+        "minPitchMm": 430,
+        "springHardness": 5
+      }
+    },
+    {
+      "id": "flight-006-no-techo-rem-bajo-no-altura",
+      "date": "2026-05-10T11:48:00Z",
+      "venueId": "venue-galpon-medio-12",
+      "modelId": "model-f1m-verde",
+      "motorId": "motor-136-460",
+      "turnsLoaded": 1200,
+      "backOff": 160,
+      "durationSec": 205,
+      "maxAltitudeM": 5.4,
+      "touchedCeiling": "false",
+      "ceilingContactDurationSec": 0,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "left",
+      "climb": "low",
+      "stability": "stable",
+      "landing": "falls_without_energy",
+      "propType": "variable_pitch",
+      "rpmVisual": "normal",
+      "rpmInitial": 3900,
+      "rpmMid": 2200,
+      "rpmFinal": 900,
+      "rpmTrend": "fast_decay",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 3900,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 100,
+          "rpm": 2200,
+          "note": "medio"
+        },
+        {
+          "timeSec": 205,
+          "rpm": 900,
+          "note": "final"
+        }
+      ],
+      "maxPitchMm": 640,
+      "minPitchMm": 430,
+      "springHardness": 5,
+      "vpTransitionObserved": "normal",
+      "vpMechanismMode": "known",
+      "vpTransitionTimeSec": 90,
+      "rpmBeforeVpTransition": 2800,
+      "rpmAfterVpTransition": 2200,
+      "launchTorque": 0.33,
+      "descentStartSec": 150,
+      "descentStartTorque": 0.04,
+      "turnsAtDescentStart": 80,
+      "remainingTurns": 70,
+      "notes": "No usa techo y no sobra motor; falta energía útil o el modelo está pesado. Cambiar energía inicial.",
+      "vpPropeller": {
+        "maxPitchMm": 640,
+        "minPitchMm": 430,
+        "springHardness": 5
+      }
+    },
+    {
+      "id": "flight-007-baseline-ideal-1",
+      "date": "2026-05-10T12:06:00Z",
+      "venueId": "venue-galpon-medio-12",
+      "modelId": "model-f1m-azul",
+      "motorId": "motor-145-445",
+      "turnsLoaded": 1500,
+      "backOff": 110,
+      "durationSec": 520,
+      "maxAltitudeM": 10.2,
+      "touchedCeiling": "false",
+      "ceilingContactDurationSec": 0,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "left",
+      "climb": "correct",
+      "stability": "stable",
+      "landing": "soft",
+      "propType": "variable_pitch",
+      "rpmVisual": "normal",
+      "rpmInitial": 4400,
+      "rpmMid": 2850,
+      "rpmFinal": 1850,
+      "rpmTrend": "slow_decay",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 4400,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 180,
+          "rpm": 3300,
+          "note": "ascenso"
+        },
+        {
+          "timeSec": 360,
+          "rpm": 2450,
+          "note": "medio"
+        },
+        {
+          "timeSec": 520,
+          "rpm": 1850,
+          "note": "final"
+        }
+      ],
+      "maxPitchMm": 660,
+      "minPitchMm": 430,
+      "springHardness": 5,
+      "vpTransitionObserved": "normal",
+      "vpMechanismMode": "known",
+      "vpTransitionTimeSec": 165,
+      "rpmBeforeVpTransition": 3100,
+      "rpmAfterVpTransition": 2600,
+      "launchTorque": 0.46,
+      "descentStartSec": 410,
+      "descentStartTorque": 0.06,
+      "turnsAtDescentStart": 170,
+      "remainingTurns": 95,
+      "notes": "Vuelo cerca del óptimo: usa 85% de techo, estable, remanente 6.8%. Debe repetir.",
+      "vpPropeller": {
+        "maxPitchMm": 660,
+        "minPitchMm": 430,
+        "springHardness": 5
+      }
+    },
+    {
+      "id": "flight-008-baseline-ideal-2",
+      "date": "2026-05-10T12:24:00Z",
+      "venueId": "venue-galpon-medio-12",
+      "modelId": "model-f1m-azul",
+      "motorId": "motor-145-445",
+      "turnsLoaded": 1505,
+      "backOff": 110,
+      "durationSec": 528,
+      "maxAltitudeM": 10.5,
+      "touchedCeiling": "false",
+      "ceilingContactDurationSec": 0,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "left",
+      "climb": "correct",
+      "stability": "stable",
+      "landing": "soft",
+      "propType": "variable_pitch",
+      "rpmVisual": "normal",
+      "rpmInitial": 4450,
+      "rpmMid": 2870,
+      "rpmFinal": 1820,
+      "rpmTrend": "slow_decay",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 4450,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 180,
+          "rpm": 3340,
+          "note": "ascenso"
+        },
+        {
+          "timeSec": 365,
+          "rpm": 2410,
+          "note": "medio"
+        },
+        {
+          "timeSec": 528,
+          "rpm": 1820,
+          "note": "final"
+        }
+      ],
+      "maxPitchMm": 660,
+      "minPitchMm": 430,
+      "springHardness": 5,
+      "vpTransitionObserved": "normal",
+      "vpMechanismMode": "known",
+      "vpTransitionTimeSec": 168,
+      "rpmBeforeVpTransition": 3130,
+      "rpmAfterVpTransition": 2580,
+      "launchTorque": 0.46,
+      "descentStartSec": 418,
+      "descentStartTorque": 0.06,
+      "turnsAtDescentStart": 165,
+      "remainingTurns": 92,
+      "notes": "Repetición del baseline. Si se confirma, microvariar +2% vueltas o -20 back-off.",
+      "vpPropeller": {
+        "maxPitchMm": 660,
+        "minPitchMm": 430,
+        "springHardness": 5
+      }
+    },
+    {
+      "id": "flight-009-inestable-rem-alto",
+      "date": "2026-05-10T12:42:00Z",
+      "venueId": "venue-gimnasio-bajo-85",
+      "modelId": "model-f1m-rojo",
+      "motorId": "motor-142-430",
+      "turnsLoaded": 1280,
+      "backOff": 80,
+      "durationSec": 180,
+      "maxAltitudeM": 4.2,
+      "touchedCeiling": "false",
+      "ceilingContactDurationSec": 0,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "irregular",
+      "climb": "low",
+      "stability": "unstable",
+      "landing": "hard",
+      "propType": "variable_pitch",
+      "rpmVisual": "normal",
+      "rpmInitial": 4100,
+      "rpmMid": 2800,
+      "rpmFinal": 2100,
+      "rpmTrend": "slow_decay",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 4100,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 90,
+          "rpm": 2800,
+          "note": "zigzag"
+        },
+        {
+          "timeSec": 180,
+          "rpm": 2100,
+          "note": "final"
+        }
+      ],
+      "maxPitchMm": 620,
+      "minPitchMm": 430,
+      "springHardness": 5,
+      "vpTransitionObserved": "normal",
+      "vpMechanismMode": "known",
+      "vpTransitionTimeSec": 75,
+      "rpmBeforeVpTransition": 3400,
+      "rpmAfterVpTransition": 2800,
+      "launchTorque": 0.4,
+      "descentStartSec": 120,
+      "descentStartTorque": 0.07,
+      "turnsAtDescentStart": 300,
+      "remainingTurns": 250,
+      "notes": "No optimizar goma: vuelo irregular y pérdida de energía por trimado.",
+      "vpPropeller": {
+        "maxPitchMm": 620,
+        "minPitchMm": 430,
+        "springHardness": 5
+      }
+    },
+    {
+      "id": "flight-010-vp-caida-brusca-temprana",
+      "date": "2026-05-10T13:00:00Z",
+      "venueId": "venue-galpon-medio-12",
+      "modelId": "model-f1m-vp-test",
+      "motorId": "motor-145-445",
+      "turnsLoaded": 1460,
+      "backOff": 100,
+      "durationSec": 360,
+      "maxAltitudeM": 7.8,
+      "touchedCeiling": "false",
+      "ceilingContactDurationSec": 0,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "left",
+      "climb": "correct",
+      "stability": "stable",
+      "landing": "soft",
+      "propType": "variable_pitch",
+      "rpmVisual": "normal",
+      "rpmInitial": 4500,
+      "rpmMid": 2100,
+      "rpmFinal": 1700,
+      "rpmTrend": "sudden_drop",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 4500,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 80,
+          "rpm": 4200,
+          "note": "antes transición"
+        },
+        {
+          "timeSec": 95,
+          "rpm": 2500,
+          "note": "después transición"
+        },
+        {
+          "timeSec": 220,
+          "rpm": 2000,
+          "note": "medio"
+        },
+        {
+          "timeSec": 360,
+          "rpm": 1700,
+          "note": "final"
+        }
+      ],
+      "maxPitchMm": 640,
+      "minPitchMm": 410,
+      "springHardness": 2,
+      "vpTransitionObserved": "early",
+      "vpMechanismMode": "known",
+      "vpTransitionTimeSec": 95,
+      "rpmBeforeVpTransition": 4200,
+      "rpmAfterVpTransition": 2500,
+      "launchTorque": 0.45,
+      "descentStartSec": 260,
+      "descentStartTorque": 0.06,
+      "turnsAtDescentStart": 230,
+      "remainingTurns": 160,
+      "notes": "La RPM cae mucho cuando cambia el VP. Transición demasiado temprana: retrasar transición/resorte.",
+      "vpPropeller": {
+        "maxPitchMm": 640,
+        "minPitchMm": 410,
+        "springHardness": 2
+      }
+    },
+    {
+      "id": "flight-011-vp-transicion-tardia",
+      "date": "2026-05-10T13:18:00Z",
+      "venueId": "venue-galpon-medio-12",
+      "modelId": "model-f1m-vp-test",
+      "motorId": "motor-145-445",
+      "turnsLoaded": 1480,
+      "backOff": 90,
+      "durationSec": 330,
+      "maxAltitudeM": 6.5,
+      "touchedCeiling": "false",
+      "ceilingContactDurationSec": 0,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "left",
+      "climb": "low",
+      "stability": "stable",
+      "landing": "prop_still_turning",
+      "propType": "variable_pitch",
+      "rpmVisual": "slow",
+      "rpmInitial": 3900,
+      "rpmMid": 2300,
+      "rpmFinal": 1250,
+      "rpmTrend": "fast_decay",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 3900,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 180,
+          "rpm": 2500,
+          "note": "sin transición"
+        },
+        {
+          "timeSec": 240,
+          "rpm": 2000,
+          "note": "cambio tardío"
+        },
+        {
+          "timeSec": 330,
+          "rpm": 1250,
+          "note": "final"
+        }
+      ],
+      "maxPitchMm": 680,
+      "minPitchMm": 460,
+      "springHardness": 7,
+      "vpTransitionObserved": "late",
+      "vpMechanismMode": "known",
+      "vpTransitionTimeSec": 240,
+      "rpmBeforeVpTransition": 2300,
+      "rpmAfterVpTransition": 1900,
+      "launchTorque": 0.42,
+      "descentStartSec": 230,
+      "descentStartTorque": 0.07,
+      "turnsAtDescentStart": 390,
+      "remainingTurns": 300,
+      "notes": "El VP cambia tarde; queda mucha vuelta y rpm lenta. Facilitar transición o bajar minPitch.",
+      "vpPropeller": {
+        "maxPitchMm": 680,
+        "minPitchMm": 460,
+        "springHardness": 7
+      }
+    },
+    {
+      "id": "flight-012-vp-mecanismo-desconocido",
+      "date": "2026-05-10T13:36:00Z",
+      "venueId": "venue-gimnasio-bajo-85",
+      "modelId": "model-f1m-vp-test",
+      "motorId": "motor-148-450",
+      "turnsLoaded": 1420,
+      "backOff": 70,
+      "durationSec": 250,
+      "maxAltitudeM": 8.4,
+      "touchedCeiling": "light",
+      "timeToCeilingSec": 48,
+      "ceilingContactDurationSec": 8,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "left",
+      "climb": "too_aggressive",
+      "stability": "stable",
+      "landing": "soft",
+      "propType": "variable_pitch",
+      "rpmVisual": "fast",
+      "rpmInitial": 5000,
+      "rpmMid": 3500,
+      "rpmFinal": 2400,
+      "rpmTrend": "fast_decay",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 5000,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 48,
+          "rpm": 4500,
+          "note": "techo"
+        },
+        {
+          "timeSec": 140,
+          "rpm": 3200,
+          "note": "medio"
+        },
+        {
+          "timeSec": 250,
+          "rpm": 2400,
+          "note": "final"
+        }
+      ],
+      "maxPitchMm": 620,
+      "minPitchMm": 430,
+      "springHardness": 5,
+      "vpTransitionObserved": "unknown",
+      "vpMechanismMode": "unknown",
+      "launchTorque": 0.55,
+      "descentStartSec": 190,
+      "descentStartTorque": 0.09,
+      "turnsAtDescentStart": 320,
+      "remainingTurns": 240,
+      "notes": "No recomendar dureza de resorte: el sentido VP está desconocido. Mejor back-off/maxPitch.",
+      "vpPropeller": {
+        "maxPitchMm": 620,
+        "minPitchMm": 430,
+        "springHardness": 5
+      }
+    },
+    {
+      "id": "flight-013-helice-fija-rem-alto",
+      "date": "2026-05-10T13:54:00Z",
+      "venueId": "venue-galpon-medio-12",
+      "modelId": "model-f1m-fija",
+      "motorId": "motor-149-500",
+      "turnsLoaded": 1420,
+      "backOff": 100,
+      "durationSec": 300,
+      "maxAltitudeM": 6.2,
+      "touchedCeiling": "false",
+      "ceilingContactDurationSec": 0,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "left",
+      "climb": "low",
+      "stability": "stable",
+      "landing": "prop_still_turning",
+      "propType": "fixed",
+      "rpmVisual": "slow",
+      "rpmInitial": 3300,
+      "rpmMid": 1900,
+      "rpmFinal": 1050,
+      "rpmTrend": "fast_decay",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 3300,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 150,
+          "rpm": 1900,
+          "note": "medio"
+        },
+        {
+          "timeSec": 300,
+          "rpm": 1050,
+          "note": "final"
+        }
+      ],
+      "launchTorque": 0.37,
+      "descentStartSec": 210,
+      "descentStartTorque": 0.07,
+      "turnsAtDescentStart": 330,
+      "remainingTurns": 295,
+      "notes": "Hélice fija y rpm lenta; sospechar hélice demasiado cargada/fricción. No hay minPitch que ajustar.",
+      "vpPropeller": {}
+    },
+    {
+      "id": "flight-014-helice-fija-rpm-rapida",
+      "date": "2026-05-10T14:12:00Z",
+      "venueId": "venue-galpon-medio-12",
+      "modelId": "model-f1m-fija",
+      "motorId": "motor-142-430",
+      "turnsLoaded": 1300,
+      "backOff": 80,
+      "durationSec": 250,
+      "maxAltitudeM": 5.9,
+      "touchedCeiling": "false",
+      "ceilingContactDurationSec": 0,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "left",
+      "climb": "low",
+      "stability": "stable",
+      "landing": "prop_still_turning",
+      "propType": "fixed",
+      "rpmVisual": "fast",
+      "rpmInitial": 5200,
+      "rpmMid": 4300,
+      "rpmFinal": 3600,
+      "rpmTrend": "slow_decay",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 5200,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 120,
+          "rpm": 4300,
+          "note": "medio"
+        },
+        {
+          "timeSec": 250,
+          "rpm": 3600,
+          "note": "final"
+        }
+      ],
+      "launchTorque": 0.41,
+      "descentStartSec": 170,
+      "descentStartTorque": 0.08,
+      "turnsAtDescentStart": 310,
+      "remainingTurns": 260,
+      "notes": "Hélice fija gira rápido pero no sostiene: hélice descargada. Probar mayor paso/diámetro.",
+      "vpPropeller": {}
+    },
+    {
+      "id": "flight-015-motor-ilegal-alerta",
+      "date": "2026-05-10T14:30:00Z",
+      "venueId": "venue-hangar-alto-18",
+      "modelId": "model-f1m-rojo",
+      "motorId": "motor-151-420-ilegal",
+      "turnsLoaded": 1650,
+      "backOff": 90,
+      "durationSec": 600,
+      "maxAltitudeM": 16,
+      "touchedCeiling": "false",
+      "ceilingContactDurationSec": 0,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "left",
+      "climb": "correct",
+      "stability": "stable",
+      "landing": "soft",
+      "propType": "variable_pitch",
+      "rpmVisual": "normal",
+      "rpmInitial": 4700,
+      "rpmMid": 3000,
+      "rpmFinal": 1900,
+      "rpmTrend": "slow_decay",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 4700,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 250,
+          "rpm": 3000,
+          "note": "medio"
+        },
+        {
+          "timeSec": 600,
+          "rpm": 1900,
+          "note": "final"
+        }
+      ],
+      "maxPitchMm": 680,
+      "minPitchMm": 430,
+      "springHardness": 5,
+      "vpTransitionObserved": "normal",
+      "vpMechanismMode": "known",
+      "vpTransitionTimeSec": 210,
+      "rpmBeforeVpTransition": 3300,
+      "rpmAfterVpTransition": 2700,
+      "launchTorque": 0.52,
+      "descentStartSec": 500,
+      "descentStartTorque": 0.07,
+      "turnsAtDescentStart": 130,
+      "remainingTurns": 80,
+      "notes": "Debe activar alerta de reglamento por motor 1.51 g aunque el vuelo sea bueno.",
+      "vpPropeller": {
+        "maxPitchMm": 680,
+        "minPitchMm": 430,
+        "springHardness": 5
+      }
+    },
+    {
+      "id": "flight-016-techo-alto-falta-torque",
+      "date": "2026-05-10T14:48:00Z",
+      "venueId": "venue-hangar-alto-18",
+      "modelId": "model-f1m-verde",
+      "motorId": "motor-136-460",
+      "turnsLoaded": 1250,
+      "backOff": 120,
+      "durationSec": 260,
+      "maxAltitudeM": 7.2,
+      "touchedCeiling": "false",
+      "ceilingContactDurationSec": 0,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "left",
+      "climb": "low",
+      "stability": "stable",
+      "landing": "falls_without_energy",
+      "propType": "variable_pitch",
+      "rpmVisual": "normal",
+      "rpmInitial": 3700,
+      "rpmMid": 2100,
+      "rpmFinal": 900,
+      "rpmTrend": "fast_decay",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 3700,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 130,
+          "rpm": 2100,
+          "note": "medio"
+        },
+        {
+          "timeSec": 260,
+          "rpm": 900,
+          "note": "final"
+        }
+      ],
+      "maxPitchMm": 660,
+      "minPitchMm": 430,
+      "springHardness": 5,
+      "vpTransitionObserved": "normal",
+      "vpMechanismMode": "known",
+      "vpTransitionTimeSec": 100,
+      "rpmBeforeVpTransition": 2500,
+      "rpmAfterVpTransition": 2000,
+      "launchTorque": 0.32,
+      "descentStartSec": 190,
+      "descentStartTorque": 0.04,
+      "turnsAtDescentStart": 70,
+      "remainingTurns": 60,
+      "notes": "Techo alto, modelo pesado, motor suave. Requiere más torque útil.",
+      "vpPropeller": {
+        "maxPitchMm": 660,
+        "minPitchMm": 430,
+        "springHardness": 5
+      }
+    },
+    {
+      "id": "flight-017-techo-alto-buen-ascenso",
+      "date": "2026-05-10T15:06:00Z",
+      "venueId": "venue-hangar-alto-18",
+      "modelId": "model-f1m-rojo",
+      "motorId": "motor-150-420",
+      "turnsLoaded": 1700,
+      "backOff": 140,
+      "durationSec": 710,
+      "maxAltitudeM": 15.8,
+      "touchedCeiling": "false",
+      "ceilingContactDurationSec": 0,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "left",
+      "climb": "correct",
+      "stability": "stable",
+      "landing": "soft",
+      "propType": "variable_pitch",
+      "rpmVisual": "normal",
+      "rpmInitial": 4800,
+      "rpmMid": 2900,
+      "rpmFinal": 1750,
+      "rpmTrend": "slow_decay",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 4800,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 300,
+          "rpm": 3200,
+          "note": "ascenso"
+        },
+        {
+          "timeSec": 500,
+          "rpm": 2400,
+          "note": "medio"
+        },
+        {
+          "timeSec": 710,
+          "rpm": 1750,
+          "note": "final"
+        }
+      ],
+      "maxPitchMm": 700,
+      "minPitchMm": 430,
+      "springHardness": 6,
+      "vpTransitionObserved": "normal",
+      "vpMechanismMode": "known",
+      "vpTransitionTimeSec": 240,
+      "rpmBeforeVpTransition": 3400,
+      "rpmAfterVpTransition": 2800,
+      "launchTorque": 0.55,
+      "descentStartSec": 570,
+      "descentStartTorque": 0.06,
+      "turnsAtDescentStart": 190,
+      "remainingTurns": 115,
+      "notes": "Buen uso de techo alto, remanente razonable. Repetir o microajustar.",
+      "vpPropeller": {
+        "maxPitchMm": 700,
+        "minPitchMm": 430,
+        "springHardness": 6
+      }
+    },
+    {
+      "id": "flight-018-segundo-ascenso-techo",
+      "date": "2026-05-10T15:24:00Z",
+      "venueId": "venue-gimnasio-bajo-85",
+      "modelId": "model-f1m-rojo",
+      "motorId": "motor-148-450",
+      "turnsLoaded": 1520,
+      "backOff": 60,
+      "durationSec": 340,
+      "maxAltitudeM": 8.5,
+      "touchedCeiling": "light",
+      "timeToCeilingSec": 45,
+      "ceilingContactDurationSec": 4,
+      "secondClimb": "true",
+      "secondCeilingTouch": "true",
+      "secondCeilingTimeSec": 190,
+      "secondCeilingContactDurationSec": 8,
+      "turnPattern": "left",
+      "climb": "too_aggressive",
+      "stability": "stable",
+      "landing": "soft",
+      "propType": "variable_pitch",
+      "rpmVisual": "fast",
+      "rpmInitial": 5000,
+      "rpmMid": 3700,
+      "rpmFinal": 2300,
+      "rpmTrend": "fast_decay",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 5000,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 45,
+          "rpm": 4600,
+          "note": "primer techo"
+        },
+        {
+          "timeSec": 190,
+          "rpm": 3300,
+          "note": "segundo techo"
+        },
+        {
+          "timeSec": 340,
+          "rpm": 2300,
+          "note": "final"
+        }
+      ],
+      "maxPitchMm": 620,
+      "minPitchMm": 390,
+      "springHardness": 3,
+      "vpTransitionObserved": "early",
+      "vpMechanismMode": "known",
+      "vpTransitionTimeSec": 65,
+      "rpmBeforeVpTransition": 4300,
+      "rpmAfterVpTransition": 3900,
+      "launchTorque": 0.56,
+      "descentStartSec": 280,
+      "descentStartTorque": 0.09,
+      "turnsAtDescentStart": 280,
+      "remainingTurns": 210,
+      "notes": "Segundo ascenso indica transición o paso mínimo demasiado agresivo/descargado. Controlar fase media.",
+      "vpPropeller": {
+        "maxPitchMm": 620,
+        "minPitchMm": 390,
+        "springHardness": 3
+      }
+    },
+    {
+      "id": "flight-019-caida-sin-vueltas",
+      "date": "2026-05-10T15:42:00Z",
+      "venueId": "venue-galpon-medio-12",
+      "modelId": "model-f1m-azul",
+      "motorId": "motor-132-390",
+      "turnsLoaded": 1300,
+      "backOff": 40,
+      "durationSec": 210,
+      "maxAltitudeM": 8,
+      "touchedCeiling": "false",
+      "ceilingContactDurationSec": 0,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "left",
+      "climb": "correct",
+      "stability": "stable",
+      "landing": "falls_without_energy",
+      "propType": "variable_pitch",
+      "rpmVisual": "normal",
+      "rpmInitial": 4700,
+      "rpmMid": 2300,
+      "rpmFinal": 500,
+      "rpmTrend": "fast_decay",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 4700,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 90,
+          "rpm": 3000,
+          "note": "ascenso"
+        },
+        {
+          "timeSec": 160,
+          "rpm": 1500,
+          "note": "medio"
+        },
+        {
+          "timeSec": 210,
+          "rpm": 500,
+          "note": "final"
+        }
+      ],
+      "maxPitchMm": 620,
+      "minPitchMm": 430,
+      "springHardness": 5,
+      "vpTransitionObserved": "normal",
+      "vpMechanismMode": "known",
+      "vpTransitionTimeSec": 75,
+      "rpmBeforeVpTransition": 3000,
+      "rpmAfterVpTransition": 2400,
+      "launchTorque": 0.5,
+      "descentStartSec": 165,
+      "descentStartTorque": 0.03,
+      "turnsAtDescentStart": 25,
+      "remainingTurns": 10,
+      "notes": "Motor demasiado corto/agresivo o pocas vueltas para duración. Alargar motor o aumentar vueltas conservadoramente.",
+      "vpPropeller": {
+        "maxPitchMm": 620,
+        "minPitchMm": 430,
+        "springHardness": 5
+      }
+    },
+    {
+      "id": "flight-020-friccion-sospechada",
+      "date": "2026-05-10T16:00:00Z",
+      "venueId": "venue-galpon-medio-12",
+      "modelId": "model-f1m-vp-test",
+      "motorId": "motor-145-445",
+      "turnsLoaded": 1450,
+      "backOff": 100,
+      "durationSec": 240,
+      "maxAltitudeM": 5.8,
+      "touchedCeiling": "false",
+      "ceilingContactDurationSec": 0,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "left",
+      "climb": "low",
+      "stability": "stable",
+      "landing": "prop_still_turning",
+      "propType": "variable_pitch",
+      "rpmVisual": "slow",
+      "rpmInitial": 3500,
+      "rpmMid": 1600,
+      "rpmFinal": 700,
+      "rpmTrend": "sudden_drop",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 3500,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 80,
+          "rpm": 3000,
+          "note": "normal"
+        },
+        {
+          "timeSec": 120,
+          "rpm": 1400,
+          "note": "caída súbita"
+        },
+        {
+          "timeSec": 240,
+          "rpm": 700,
+          "note": "final"
+        }
+      ],
+      "maxPitchMm": 640,
+      "minPitchMm": 430,
+      "springHardness": 5,
+      "vpTransitionObserved": "not_observed",
+      "vpMechanismMode": "known",
+      "launchTorque": 0.43,
+      "descentStartSec": 150,
+      "descentStartTorque": 0.06,
+      "turnsAtDescentStart": 420,
+      "remainingTurns": 360,
+      "notes": "RPM cae sin transición VP observada; revisar fricción/eje/hub antes de tocar goma.",
+      "vpPropeller": {
+        "maxPitchMm": 640,
+        "minPitchMm": 430,
+        "springHardness": 5
+      }
+    },
+    {
+      "id": "flight-021-datos-incompletos",
+      "date": "2026-05-10T16:18:00Z",
+      "venueId": "venue-gimnasio-bajo-85",
+      "modelId": "model-f1m-azul",
+      "motorId": "motor-145-445",
+      "turnsLoaded": 1400,
+      "backOff": 100,
+      "durationSec": 300,
+      "maxAltitudeM": 7.4,
+      "touchedCeiling": "false",
+      "ceilingContactDurationSec": 0,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "left",
+      "climb": "correct",
+      "stability": "stable",
+      "landing": "soft",
+      "propType": "variable_pitch",
+      "rpmVisual": "unknown",
+      "rpmTrend": "unknown",
+      "maxPitchMm": 650,
+      "minPitchMm": 430,
+      "springHardness": 5,
+      "vpTransitionObserved": "unknown",
+      "vpMechanismMode": "unknown",
+      "notes": "Faltan RPM, remanentes y torque. Debe pedir recolección de datos, no optimizar.",
+      "vpPropeller": {
+        "maxPitchMm": 650,
+        "minPitchMm": 430,
+        "springHardness": 5
+      }
+    },
+    {
+      "id": "flight-022-pared-deriva",
+      "date": "2026-05-10T16:36:00Z",
+      "venueId": "venue-salon-chico-72",
+      "modelId": "model-f1m-rojo",
+      "motorId": "motor-138-410",
+      "turnsLoaded": 1250,
+      "backOff": 90,
+      "durationSec": 145,
+      "maxAltitudeM": 5.7,
+      "touchedCeiling": "false",
+      "ceilingContactDurationSec": 0,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "irregular",
+      "climb": "correct",
+      "stability": "drifting",
+      "landing": "hard",
+      "propType": "variable_pitch",
+      "rpmVisual": "normal",
+      "rpmInitial": 4100,
+      "rpmMid": 3000,
+      "rpmFinal": 2200,
+      "rpmTrend": "slow_decay",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 4100,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 80,
+          "rpm": 3000,
+          "note": "deriva lateral"
+        },
+        {
+          "timeSec": 145,
+          "rpm": 2200,
+          "note": "golpe lateral"
+        }
+      ],
+      "maxPitchMm": 620,
+      "minPitchMm": 430,
+      "springHardness": 5,
+      "vpTransitionObserved": "normal",
+      "vpMechanismMode": "known",
+      "vpTransitionTimeSec": 90,
+      "rpmBeforeVpTransition": 3300,
+      "rpmAfterVpTransition": 2850,
+      "launchTorque": 0.44,
+      "descentStartSec": 120,
+      "descentStartTorque": 0.08,
+      "turnsAtDescentStart": 280,
+      "remainingTurns": 240,
+      "notes": "Vuelo interrumpido por deriva/ambiente. No sacar conclusiones de motor.",
+      "vpPropeller": {
+        "maxPitchMm": 620,
+        "minPitchMm": 430,
+        "springHardness": 5
+      }
+    },
+    {
+      "id": "flight-023-maxpitch-insuficiente",
+      "date": "2026-05-10T16:54:00Z",
+      "venueId": "venue-gimnasio-bajo-85",
+      "modelId": "model-f1m-azul",
+      "motorId": "motor-148-450",
+      "turnsLoaded": 1500,
+      "backOff": 90,
+      "durationSec": 275,
+      "maxAltitudeM": 8.5,
+      "touchedCeiling": "light",
+      "timeToCeilingSec": 55,
+      "ceilingContactDurationSec": 10,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "left",
+      "climb": "too_aggressive",
+      "stability": "stable",
+      "landing": "soft",
+      "propType": "variable_pitch",
+      "rpmVisual": "fast",
+      "rpmInitial": 5300,
+      "rpmMid": 3900,
+      "rpmFinal": 2400,
+      "rpmTrend": "fast_decay",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 5300,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 55,
+          "rpm": 4700,
+          "note": "techo"
+        },
+        {
+          "timeSec": 170,
+          "rpm": 3300,
+          "note": "medio"
+        },
+        {
+          "timeSec": 275,
+          "rpm": 2400,
+          "note": "final"
+        }
+      ],
+      "maxPitchMm": 560,
+      "minPitchMm": 430,
+      "springHardness": 5,
+      "vpTransitionObserved": "normal",
+      "vpMechanismMode": "known",
+      "vpTransitionTimeSec": 70,
+      "rpmBeforeVpTransition": 4600,
+      "rpmAfterVpTransition": 3800,
+      "launchTorque": 0.57,
+      "descentStartSec": 220,
+      "descentStartTorque": 0.09,
+      "turnsAtDescentStart": 360,
+      "remainingTurns": 250,
+      "notes": "MaxPitch bajo no absorbe torque inicial: aumentar paso máximo.",
+      "vpPropeller": {
+        "maxPitchMm": 560,
+        "minPitchMm": 430,
+        "springHardness": 5
+      }
+    },
+    {
+      "id": "flight-024-maxpitch-excesivo",
+      "date": "2026-05-10T17:12:00Z",
+      "venueId": "venue-galpon-medio-12",
+      "modelId": "model-f1m-verde",
+      "motorId": "motor-142-430",
+      "turnsLoaded": 1360,
+      "backOff": 80,
+      "durationSec": 230,
+      "maxAltitudeM": 5.2,
+      "touchedCeiling": "false",
+      "ceilingContactDurationSec": 0,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "left",
+      "climb": "low",
+      "stability": "stable",
+      "landing": "prop_still_turning",
+      "propType": "variable_pitch",
+      "rpmVisual": "slow",
+      "rpmInitial": 3200,
+      "rpmMid": 2000,
+      "rpmFinal": 1300,
+      "rpmTrend": "slow_decay",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 3200,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 110,
+          "rpm": 2000,
+          "note": "medio"
+        },
+        {
+          "timeSec": 230,
+          "rpm": 1300,
+          "note": "final"
+        }
+      ],
+      "maxPitchMm": 760,
+      "minPitchMm": 430,
+      "springHardness": 5,
+      "vpTransitionObserved": "normal",
+      "vpMechanismMode": "known",
+      "vpTransitionTimeSec": 120,
+      "rpmBeforeVpTransition": 2500,
+      "rpmAfterVpTransition": 2100,
+      "launchTorque": 0.38,
+      "descentStartSec": 165,
+      "descentStartTorque": 0.07,
+      "turnsAtDescentStart": 300,
+      "remainingTurns": 245,
+      "notes": "Paso máximo muy alto carga la hélice y no trepa. Reducir maxPitch antes que motor.",
+      "vpPropeller": {
+        "maxPitchMm": 760,
+        "minPitchMm": 430,
+        "springHardness": 5
+      }
+    },
+    {
+      "id": "flight-025-minpitch-alto-final",
+      "date": "2026-05-10T17:30:00Z",
+      "venueId": "venue-galpon-medio-12",
+      "modelId": "model-f1m-azul",
+      "motorId": "motor-145-445",
+      "turnsLoaded": 1460,
+      "backOff": 100,
+      "durationSec": 340,
+      "maxAltitudeM": 8,
+      "touchedCeiling": "false",
+      "ceilingContactDurationSec": 0,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "left",
+      "climb": "correct",
+      "stability": "stable",
+      "landing": "prop_still_turning",
+      "propType": "variable_pitch",
+      "rpmVisual": "slow",
+      "rpmInitial": 4200,
+      "rpmMid": 2300,
+      "rpmFinal": 1050,
+      "rpmTrend": "fast_decay",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 4200,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 170,
+          "rpm": 2300,
+          "note": "medio"
+        },
+        {
+          "timeSec": 340,
+          "rpm": 1050,
+          "note": "final"
+        }
+      ],
+      "maxPitchMm": 660,
+      "minPitchMm": 520,
+      "springHardness": 5,
+      "vpTransitionObserved": "normal",
+      "vpMechanismMode": "known",
+      "vpTransitionTimeSec": 140,
+      "rpmBeforeVpTransition": 3000,
+      "rpmAfterVpTransition": 2400,
+      "launchTorque": 0.44,
+      "descentStartSec": 250,
+      "descentStartTorque": 0.08,
+      "turnsAtDescentStart": 360,
+      "remainingTurns": 280,
+      "notes": "MinPitch demasiado alto; carga mucho final y deja vueltas.",
+      "vpPropeller": {
+        "maxPitchMm": 660,
+        "minPitchMm": 520,
+        "springHardness": 5
+      }
+    },
+    {
+      "id": "flight-026-minpitch-bajo-final",
+      "date": "2026-05-10T17:48:00Z",
+      "venueId": "venue-galpon-medio-12",
+      "modelId": "model-f1m-azul",
+      "motorId": "motor-145-445",
+      "turnsLoaded": 1460,
+      "backOff": 100,
+      "durationSec": 330,
+      "maxAltitudeM": 7.9,
+      "touchedCeiling": "false",
+      "ceilingContactDurationSec": 0,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "left",
+      "climb": "correct",
+      "stability": "stable",
+      "landing": "prop_still_turning",
+      "propType": "variable_pitch",
+      "rpmVisual": "fast",
+      "rpmInitial": 4400,
+      "rpmMid": 3950,
+      "rpmFinal": 3600,
+      "rpmTrend": "stable",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 4400,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 170,
+          "rpm": 3950,
+          "note": "medio"
+        },
+        {
+          "timeSec": 330,
+          "rpm": 3600,
+          "note": "final"
+        }
+      ],
+      "maxPitchMm": 660,
+      "minPitchMm": 330,
+      "springHardness": 5,
+      "vpTransitionObserved": "early",
+      "vpMechanismMode": "known",
+      "vpTransitionTimeSec": 80,
+      "rpmBeforeVpTransition": 4300,
+      "rpmAfterVpTransition": 3900,
+      "launchTorque": 0.43,
+      "descentStartSec": 250,
+      "descentStartTorque": 0.08,
+      "turnsAtDescentStart": 330,
+      "remainingTurns": 265,
+      "notes": "MinPitch demasiado bajo; RPM alta sin sostén.",
+      "vpPropeller": {
+        "maxPitchMm": 660,
+        "minPitchMm": 330,
+        "springHardness": 5
+      }
+    },
+    {
+      "id": "flight-027-motor-largo-fino-confirmacion",
+      "date": "2026-05-10T18:06:00Z",
+      "venueId": "venue-hangar-alto-18",
+      "modelId": "model-f1m-azul",
+      "motorId": "motor-149-500",
+      "turnsLoaded": 1580,
+      "backOff": 120,
+      "durationSec": 430,
+      "maxAltitudeM": 9.1,
+      "touchedCeiling": "false",
+      "ceilingContactDurationSec": 0,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "left",
+      "climb": "low",
+      "stability": "stable",
+      "landing": "soft",
+      "propType": "variable_pitch",
+      "rpmVisual": "normal",
+      "rpmInitial": 3900,
+      "rpmMid": 2850,
+      "rpmFinal": 2100,
+      "rpmTrend": "slow_decay",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 3900,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 200,
+          "rpm": 2850,
+          "note": "medio"
+        },
+        {
+          "timeSec": 430,
+          "rpm": 2100,
+          "note": "final"
+        }
+      ],
+      "maxPitchMm": 680,
+      "minPitchMm": 430,
+      "springHardness": 5,
+      "vpTransitionObserved": "normal",
+      "vpMechanismMode": "known",
+      "vpTransitionTimeSec": 160,
+      "rpmBeforeVpTransition": 3100,
+      "rpmAfterVpTransition": 2600,
+      "launchTorque": 0.4,
+      "descentStartSec": 350,
+      "descentStartTorque": 0.08,
+      "turnsAtDescentStart": 460,
+      "remainingTurns": 370,
+      "notes": "Incluso en techo alto no usa altura y remanente alto. Motor largo/fino.",
+      "vpPropeller": {
+        "maxPitchMm": 680,
+        "minPitchMm": 430,
+        "springHardness": 5
+      }
+    },
+    {
+      "id": "flight-028-motor-corto-muy-agresivo",
+      "date": "2026-05-10T18:24:00Z",
+      "venueId": "venue-gimnasio-bajo-85",
+      "modelId": "model-f1m-rojo",
+      "motorId": "motor-150-420",
+      "turnsLoaded": 1600,
+      "backOff": 40,
+      "durationSec": 220,
+      "maxAltitudeM": 8.5,
+      "touchedCeiling": "hard",
+      "timeToCeilingSec": 25,
+      "ceilingContactDurationSec": 20,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "left",
+      "climb": "too_aggressive",
+      "stability": "stable",
+      "landing": "hard",
+      "propType": "variable_pitch",
+      "rpmVisual": "fast",
+      "rpmInitial": 5600,
+      "rpmMid": 3400,
+      "rpmFinal": 1200,
+      "rpmTrend": "fast_decay",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 5600,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 25,
+          "rpm": 5200,
+          "note": "techo fuerte"
+        },
+        {
+          "timeSec": 120,
+          "rpm": 2800,
+          "note": "medio"
+        },
+        {
+          "timeSec": 220,
+          "rpm": 1200,
+          "note": "final"
+        }
+      ],
+      "maxPitchMm": 640,
+      "minPitchMm": 430,
+      "springHardness": 5,
+      "vpTransitionObserved": "normal",
+      "vpMechanismMode": "known",
+      "vpTransitionTimeSec": 50,
+      "rpmBeforeVpTransition": 4800,
+      "rpmAfterVpTransition": 3600,
+      "launchTorque": 0.65,
+      "descentStartSec": 170,
+      "descentStartTorque": 0.05,
+      "turnsAtDescentStart": 100,
+      "remainingTurns": 55,
+      "notes": "Motor demasiado agresivo para techo bajo. Aumentar backOff o motor más largo/fino.",
+      "vpPropeller": {
+        "maxPitchMm": 640,
+        "minPitchMm": 430,
+        "springHardness": 5
+      }
+    },
+    {
+      "id": "flight-029-salon-chico-controlado",
+      "date": "2026-05-10T18:42:00Z",
+      "venueId": "venue-salon-chico-72",
+      "modelId": "model-f1m-azul",
+      "motorId": "motor-148-470",
+      "turnsLoaded": 1450,
+      "backOff": 170,
+      "durationSec": 380,
+      "maxAltitudeM": 6.6,
+      "touchedCeiling": "false",
+      "ceilingContactDurationSec": 0,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "left",
+      "climb": "correct",
+      "stability": "stable",
+      "landing": "soft",
+      "propType": "variable_pitch",
+      "rpmVisual": "normal",
+      "rpmInitial": 3950,
+      "rpmMid": 2600,
+      "rpmFinal": 1650,
+      "rpmTrend": "slow_decay",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 3950,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 180,
+          "rpm": 2600,
+          "note": "medio"
+        },
+        {
+          "timeSec": 380,
+          "rpm": 1650,
+          "note": "final"
+        }
+      ],
+      "maxPitchMm": 700,
+      "minPitchMm": 430,
+      "springHardness": 5,
+      "vpTransitionObserved": "normal",
+      "vpMechanismMode": "known",
+      "vpTransitionTimeSec": 150,
+      "rpmBeforeVpTransition": 2900,
+      "rpmAfterVpTransition": 2400,
+      "launchTorque": 0.38,
+      "descentStartSec": 300,
+      "descentStartTorque": 0.06,
+      "turnsAtDescentStart": 120,
+      "remainingTurns": 85,
+      "notes": "Vuelo bueno en salón bajo; repetir y luego bajar levemente back-off.",
+      "vpPropeller": {
+        "maxPitchMm": 700,
+        "minPitchMm": 430,
+        "springHardness": 5
+      }
+    },
+    {
+      "id": "flight-030-backoff-excesivo",
+      "date": "2026-05-10T19:00:00Z",
+      "venueId": "venue-galpon-medio-12",
+      "modelId": "model-f1m-azul",
+      "motorId": "motor-145-445",
+      "turnsLoaded": 1480,
+      "backOff": 260,
+      "durationSec": 280,
+      "maxAltitudeM": 5.8,
+      "touchedCeiling": "false",
+      "ceilingContactDurationSec": 0,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "left",
+      "climb": "low",
+      "stability": "stable",
+      "landing": "soft",
+      "propType": "variable_pitch",
+      "rpmVisual": "normal",
+      "rpmInitial": 3600,
+      "rpmMid": 2400,
+      "rpmFinal": 1600,
+      "rpmTrend": "slow_decay",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 3600,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 140,
+          "rpm": 2400,
+          "note": "medio"
+        },
+        {
+          "timeSec": 280,
+          "rpm": 1600,
+          "note": "final"
+        }
+      ],
+      "maxPitchMm": 660,
+      "minPitchMm": 430,
+      "springHardness": 5,
+      "vpTransitionObserved": "normal",
+      "vpMechanismMode": "known",
+      "vpTransitionTimeSec": 120,
+      "rpmBeforeVpTransition": 2700,
+      "rpmAfterVpTransition": 2300,
+      "launchTorque": 0.32,
+      "descentStartSec": 220,
+      "descentStartTorque": 0.07,
+      "turnsAtDescentStart": 230,
+      "remainingTurns": 180,
+      "notes": "Demasiado back-off: no usa techo y remanente moderado. Reducir back-off.",
+      "vpPropeller": {
+        "maxPitchMm": 660,
+        "minPitchMm": 430,
+        "springHardness": 5
+      }
+    },
+    {
+      "id": "flight-031-vueltas-insuficientes",
+      "date": "2026-05-10T19:18:00Z",
+      "venueId": "venue-galpon-medio-12",
+      "modelId": "model-f1m-azul",
+      "motorId": "motor-145-445",
+      "turnsLoaded": 1180,
+      "backOff": 60,
+      "durationSec": 220,
+      "maxAltitudeM": 6.9,
+      "touchedCeiling": "false",
+      "ceilingContactDurationSec": 0,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "left",
+      "climb": "correct",
+      "stability": "stable",
+      "landing": "falls_without_energy",
+      "propType": "variable_pitch",
+      "rpmVisual": "normal",
+      "rpmInitial": 3800,
+      "rpmMid": 2100,
+      "rpmFinal": 700,
+      "rpmTrend": "fast_decay",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 3800,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 110,
+          "rpm": 2100,
+          "note": "medio"
+        },
+        {
+          "timeSec": 220,
+          "rpm": 700,
+          "note": "final"
+        }
+      ],
+      "maxPitchMm": 660,
+      "minPitchMm": 430,
+      "springHardness": 5,
+      "vpTransitionObserved": "normal",
+      "vpMechanismMode": "known",
+      "vpTransitionTimeSec": 80,
+      "rpmBeforeVpTransition": 2600,
+      "rpmAfterVpTransition": 2100,
+      "launchTorque": 0.36,
+      "descentStartSec": 170,
+      "descentStartTorque": 0.04,
+      "turnsAtDescentStart": 35,
+      "remainingTurns": 20,
+      "notes": "No sobra motor y no usa techo; subir vueltas netas.",
+      "vpPropeller": {
+        "maxPitchMm": 660,
+        "minPitchMm": 430,
+        "springHardness": 5
+      }
+    },
+    {
+      "id": "flight-032-trim-cuelgue",
+      "date": "2026-05-10T19:36:00Z",
+      "venueId": "venue-galpon-medio-12",
+      "modelId": "model-f1m-verde",
+      "motorId": "motor-148-450",
+      "turnsLoaded": 1450,
+      "backOff": 80,
+      "durationSec": 170,
+      "maxAltitudeM": 6.1,
+      "touchedCeiling": "false",
+      "ceilingContactDurationSec": 0,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "left",
+      "climb": "correct",
+      "stability": "stalling",
+      "landing": "hard",
+      "propType": "variable_pitch",
+      "rpmVisual": "normal",
+      "rpmInitial": 4300,
+      "rpmMid": 2800,
+      "rpmFinal": 2000,
+      "rpmTrend": "slow_decay",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 4300,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 90,
+          "rpm": 2800,
+          "note": "cuelgue"
+        },
+        {
+          "timeSec": 170,
+          "rpm": 2000,
+          "note": "final"
+        }
+      ],
+      "maxPitchMm": 650,
+      "minPitchMm": 430,
+      "springHardness": 5,
+      "vpTransitionObserved": "normal",
+      "vpMechanismMode": "known",
+      "vpTransitionTimeSec": 100,
+      "rpmBeforeVpTransition": 3200,
+      "rpmAfterVpTransition": 2600,
+      "launchTorque": 0.45,
+      "descentStartSec": 130,
+      "descentStartTorque": 0.07,
+      "turnsAtDescentStart": 300,
+      "remainingTurns": 250,
+      "notes": "Cuelga: problema de trimado/incidencia. No tocar motor.",
+      "vpPropeller": {
+        "maxPitchMm": 650,
+        "minPitchMm": 430,
+        "springHardness": 5
+      }
+    },
+    {
+      "id": "flight-033-contacto-largo-techo",
+      "date": "2026-05-10T19:54:00Z",
+      "venueId": "venue-gimnasio-bajo-85",
+      "modelId": "model-f1m-rojo",
+      "motorId": "motor-148-450",
+      "turnsLoaded": 1500,
+      "backOff": 70,
+      "durationSec": 300,
+      "maxAltitudeM": 8.5,
+      "touchedCeiling": "hard",
+      "timeToCeilingSec": 35,
+      "ceilingContactDurationSec": 55,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "left",
+      "climb": "too_aggressive",
+      "stability": "stable",
+      "landing": "soft",
+      "propType": "variable_pitch",
+      "rpmVisual": "fast",
+      "rpmInitial": 5400,
+      "rpmMid": 3600,
+      "rpmFinal": 2200,
+      "rpmTrend": "fast_decay",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 5400,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 35,
+          "rpm": 5000,
+          "note": "techo"
+        },
+        {
+          "timeSec": 90,
+          "rpm": 4100,
+          "note": "rozando"
+        },
+        {
+          "timeSec": 300,
+          "rpm": 2200,
+          "note": "final"
+        }
+      ],
+      "maxPitchMm": 620,
+      "minPitchMm": 430,
+      "springHardness": 5,
+      "vpTransitionObserved": "normal",
+      "vpMechanismMode": "unknown",
+      "vpTransitionTimeSec": 80,
+      "rpmBeforeVpTransition": 4400,
+      "rpmAfterVpTransition": 3600,
+      "launchTorque": 0.6,
+      "descentStartSec": 230,
+      "descentStartTorque": 0.09,
+      "turnsAtDescentStart": 310,
+      "remainingTurns": 230,
+      "notes": "Contacto muy largo: prioridad absoluta reducir techo inicial.",
+      "vpPropeller": {
+        "maxPitchMm": 620,
+        "minPitchMm": 430,
+        "springHardness": 5
+      }
+    },
+    {
+      "id": "flight-034-uso-techo-bajo-rem-ideal",
+      "date": "2026-05-10T20:12:00Z",
+      "venueId": "venue-hangar-alto-18",
+      "modelId": "model-f1m-verde",
+      "motorId": "motor-138-410",
+      "turnsLoaded": 1350,
+      "backOff": 80,
+      "durationSec": 360,
+      "maxAltitudeM": 9,
+      "touchedCeiling": "false",
+      "ceilingContactDurationSec": 0,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "left",
+      "climb": "low",
+      "stability": "stable",
+      "landing": "soft",
+      "propType": "variable_pitch",
+      "rpmVisual": "normal",
+      "rpmInitial": 4200,
+      "rpmMid": 2400,
+      "rpmFinal": 1500,
+      "rpmTrend": "slow_decay",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 4200,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 180,
+          "rpm": 2400,
+          "note": "medio"
+        },
+        {
+          "timeSec": 360,
+          "rpm": 1500,
+          "note": "final"
+        }
+      ],
+      "maxPitchMm": 640,
+      "minPitchMm": 430,
+      "springHardness": 5,
+      "vpTransitionObserved": "normal",
+      "vpMechanismMode": "known",
+      "vpTransitionTimeSec": 110,
+      "rpmBeforeVpTransition": 2900,
+      "rpmAfterVpTransition": 2400,
+      "launchTorque": 0.42,
+      "descentStartSec": 300,
+      "descentStartTorque": 0.06,
+      "turnsAtDescentStart": 120,
+      "remainingTurns": 85,
+      "notes": "Remanente correcto pero usa solo 50% de techo alto. Se puede subir lanzamiento o bajar backOff.",
+      "vpPropeller": {
+        "maxPitchMm": 640,
+        "minPitchMm": 430,
+        "springHardness": 5
+      }
+    },
+    {
+      "id": "flight-035-uso-techo-alto-rem-alto",
+      "date": "2026-05-10T20:30:00Z",
+      "venueId": "venue-galpon-medio-12",
+      "modelId": "model-f1m-azul",
+      "motorId": "motor-148-450",
+      "turnsLoaded": 1500,
+      "backOff": 100,
+      "durationSec": 500,
+      "maxAltitudeM": 11.4,
+      "touchedCeiling": "false",
+      "ceilingContactDurationSec": 0,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "left",
+      "climb": "correct",
+      "stability": "stable",
+      "landing": "prop_still_turning",
+      "propType": "variable_pitch",
+      "rpmVisual": "normal",
+      "rpmInitial": 4300,
+      "rpmMid": 3000,
+      "rpmFinal": 2300,
+      "rpmTrend": "slow_decay",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 4300,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 220,
+          "rpm": 3200,
+          "note": "ascenso"
+        },
+        {
+          "timeSec": 500,
+          "rpm": 2300,
+          "note": "final"
+        }
+      ],
+      "maxPitchMm": 660,
+      "minPitchMm": 430,
+      "springHardness": 5,
+      "vpTransitionObserved": "normal",
+      "vpMechanismMode": "known",
+      "vpTransitionTimeSec": 170,
+      "rpmBeforeVpTransition": 3200,
+      "rpmAfterVpTransition": 2600,
+      "launchTorque": 0.46,
+      "descentStartSec": 410,
+      "descentStartTorque": 0.08,
+      "turnsAtDescentStart": 300,
+      "remainingTurns": 250,
+      "notes": "Usa bien el techo pero sobra motor. Ajuste fino de minPitch/motor según RPM normal.",
+      "vpPropeller": {
+        "maxPitchMm": 660,
+        "minPitchMm": 430,
+        "springHardness": 5
+      }
+    },
+    {
+      "id": "flight-036-comparacion-goma-floja",
+      "date": "2026-05-10T20:48:00Z",
+      "venueId": "venue-galpon-medio-12",
+      "modelId": "model-f1m-azul",
+      "motorId": "motor-training-120-430",
+      "turnsLoaded": 1050,
+      "backOff": 50,
+      "durationSec": 160,
+      "maxAltitudeM": 4.5,
+      "touchedCeiling": "false",
+      "ceilingContactDurationSec": 0,
+      "secondClimb": "false",
+      "secondCeilingTouch": "false",
+      "turnPattern": "left",
+      "climb": "low",
+      "stability": "stable",
+      "landing": "falls_without_energy",
+      "propType": "fixed",
+      "rpmVisual": "normal",
+      "rpmInitial": 3100,
+      "rpmMid": 1600,
+      "rpmFinal": 450,
+      "rpmTrend": "fast_decay",
+      "rpmSamples": [
+        {
+          "timeSec": 0,
+          "rpm": 3100,
+          "note": "lanzamiento"
+        },
+        {
+          "timeSec": 80,
+          "rpm": 1600,
+          "note": "medio"
+        },
+        {
+          "timeSec": 160,
+          "rpm": 450,
+          "note": "final"
+        }
+      ],
+      "launchTorque": 0.28,
+      "descentStartSec": 120,
+      "descentStartTorque": 0.03,
+      "turnsAtDescentStart": 20,
+      "remainingTurns": 5,
+      "notes": "Motor de entrenamiento insuficiente. Sirve para validar que la app no busque VP cuando no corresponde.",
+      "vpPropeller": {}
+    }
+  ]
+}

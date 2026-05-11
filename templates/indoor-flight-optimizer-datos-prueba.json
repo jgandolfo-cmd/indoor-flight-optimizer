@@ -1,0 +1,147 @@
+{
+  "venues": [
+    {
+      "id": "venue-gimnasio-bajo",
+      "name": "Gimnasio Bajo",
+      "city": "Buenos Aires",
+      "ceilingHeightM": 8.5,
+      "usableLengthM": 32,
+      "usableWidthM": 18,
+      "notes": "Techo bajo para pruebas de back-off"
+    },
+    {
+      "id": "venue-hangar-alto",
+      "name": "Hangar Alto",
+      "city": "Moron",
+      "ceilingHeightM": 12,
+      "usableLengthM": 45,
+      "usableWidthM": 25,
+      "notes": "Techo alto para comparar VP"
+    }
+  ],
+  "models": [
+    {
+      "id": "model-f1m-a",
+      "name": "F1M Azul",
+      "wingspanMm": 455,
+      "weightG": 3.15,
+      "wingAreaDm2": 13.8,
+      "notes": "Modelo baseline"
+    }
+  ],
+  "rubberBatches": [
+    {
+      "id": "batch-2026-a",
+      "name": "Lote A",
+      "manufacturer": "Tan Super Sport",
+      "widthMm": 1.5,
+      "thicknessMm": 1,
+      "purchaseDate": "2026-05-01",
+      "notes": "Goma principal"
+    }
+  ],
+  "motors": [
+    {
+      "id": "motor-135-420",
+      "name": "Motor 1.35g 420mm",
+      "batchId": "batch-2026-a",
+      "loopLengthMm": 420,
+      "weightG": 1.35,
+      "strands": 1,
+      "lubricant": "Silicona"
+    },
+    {
+      "id": "motor-148-450",
+      "name": "Motor 1.48g 450mm",
+      "batchId": "batch-2026-a",
+      "loopLengthMm": 450,
+      "weightG": 1.48,
+      "strands": 1,
+      "lubricant": "Silicona"
+    }
+  ],
+  "flights": [
+    {
+      "id": "flight-techo-largo",
+      "date": "2026-05-10T11:00:00.000Z",
+      "venueId": "venue-gimnasio-bajo",
+      "modelId": "model-f1m-a",
+      "motorId": "motor-148-450",
+      "turnsLoaded": 1250,
+      "backOff": 40,
+      "durationSec": 210,
+      "maxAltitudeM": 8.5,
+      "touchedCeiling": true,
+      "timeToCeilingSec": 42,
+      "ceilingContactDurationSec": 18,
+      "secondClimb": false,
+      "secondCeilingTouch": false,
+      "turnPattern": "left",
+      "climb": "too_aggressive",
+      "stability": "stable",
+      "landing": "soft",
+      "propType": "variable_pitch",
+      "rpmVisual": "fast",
+      "rpmInitial": 5200,
+      "rpmMid": 3600,
+      "rpmFinal": 2500,
+      "rpmSamples": [
+        { "timeSec": 0, "rpm": 5200, "note": "lanzamiento" },
+        { "timeSec": 42, "rpm": 4700, "note": "techo" },
+        { "timeSec": 60, "rpm": 3900, "note": "contacto techo" },
+        { "timeSec": 210, "rpm": 2500, "note": "final" }
+      ],
+      "vpPropeller": { "maxPitchMm": 600, "minPitchMm": 420, "springHardness": 5 },
+      "vpTransitionObserved": "normal",
+      "vpMechanismMode": "unknown",
+      "vpTransitionTimeSec": 70,
+      "rpmBeforeVpTransition": 4200,
+      "rpmAfterVpTransition": 3600,
+      "launchTorque": 0.55,
+      "descentStartSec": 170,
+      "descentStartTorque": 0.1,
+      "turnsAtDescentStart": 300,
+      "remainingTurns": 230,
+      "notes": "Golpea techo por mucho tiempo"
+    },
+    {
+      "id": "flight-rem-rpm-lenta",
+      "date": "2026-05-10T12:00:00.000Z",
+      "venueId": "venue-gimnasio-bajo",
+      "modelId": "model-f1m-a",
+      "motorId": "motor-135-420",
+      "turnsLoaded": 1080,
+      "backOff": 80,
+      "durationSec": 190,
+      "maxAltitudeM": 4.6,
+      "touchedCeiling": false,
+      "ceilingContactDurationSec": 0,
+      "secondClimb": false,
+      "secondCeilingTouch": false,
+      "turnPattern": "left",
+      "climb": "low",
+      "stability": "stable",
+      "landing": "soft",
+      "propType": "variable_pitch",
+      "rpmVisual": "slow",
+      "rpmInitial": 3600,
+      "rpmMid": 2100,
+      "rpmFinal": 1200,
+      "rpmSamples": [
+        { "timeSec": 0, "rpm": 3600, "note": "lanzamiento" },
+        { "timeSec": 100, "rpm": 2100, "note": "media" },
+        { "timeSec": 190, "rpm": 1200, "note": "final" }
+      ],
+      "vpPropeller": { "maxPitchMm": 620, "minPitchMm": 460, "springHardness": 5 },
+      "vpTransitionObserved": "normal",
+      "vpMechanismMode": "known",
+      "vpTransitionTimeSec": 95,
+      "launchTorque": 0.38,
+      "descentStartSec": 145,
+      "descentStartTorque": 0.07,
+      "turnsAtDescentStart": 260,
+      "remainingTurns": 240,
+      "notes": "Cae bajo con muchas vueltas y rpm lenta"
+    }
+  ]
+}
