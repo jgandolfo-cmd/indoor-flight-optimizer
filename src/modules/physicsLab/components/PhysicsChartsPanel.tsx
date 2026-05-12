@@ -3,8 +3,11 @@ import type { PhysicsLabInput, PhysicsLabResult } from '../core/types';
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 
-function pct(n: number) { return `${Math.round(n * 100)}%`; }
 function mw(w: number) { return `${Math.round(w * 1000)} mW`; }
+// Use when value is already a percentage (0–100)
+function formatPercentValue(value: number) { return `${value.toFixed(1)}%`; }
+// Use when value is a ratio (0–1)
+function formatPercentFromRatio(value: number) { return `${(value * 100).toFixed(1)}%`; }
 
 // ── RPM chart (SVG line) ──────────────────────────────────────────────────────
 
@@ -174,7 +177,7 @@ function EnergyChart({ result }: { result: PhysicsLabResult }) {
       </div>
       {result.remainingTurnsRatio && (
         <p className="physics-chart-sub">
-          Remanente de vueltas: {(result.remainingTurnsRatio.value * 100).toFixed(1)}%
+          Remanente de vueltas: {formatPercentValue(result.remainingTurnsRatio.value)}
         </p>
       )}
       <p className="physics-chart-caption">
