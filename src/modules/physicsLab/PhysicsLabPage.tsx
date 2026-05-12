@@ -1,10 +1,12 @@
 import type * as React from 'react';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import type { AppData } from '../../domain/types';
 import type { PhysicsLabInput, PhysicsLabRecommendation, PhysicsLabResult } from './core/types';
 import { analyzePhysicsLab } from './index';
 import { adaptFlightToPhysicsInput, listFlightOptions } from './adapters/fromExistingData';
-import { loadPhysicsLabInput, savePhysicsLabInput, clearPhysicsLabInput } from './data/physicsLabStorage';
+import { loadPhysicsLabInput, savePhysicsLabInput, clearPhysicsLabInput, saveToHistory } from './data/physicsLabStorage';
+import type { CaseMetadata } from './data/importNormalizer';
+import { parsePhysicsLabFile } from './data/importNormalizer';
 import { sampleF1MFlight, sampleDanjoF1M } from './data/samplePhysicsData';
 import { PhysicsInputPanel } from './components/PhysicsInputPanel';
 import { PhysicsResultsPanel } from './components/PhysicsResultsPanel';
@@ -17,6 +19,8 @@ const EMPTY_INPUT: PhysicsLabInput = {
   motor: { launchTorqueUnit: 'lbIn' },
 };
 
+type PendingCase = { input: PhysicsLabInput; metadata: CaseMetadata };
+
 export function PhysicsLabPage({ appData }: { appData?: AppData }) {
   const [input, setInput] = useState<PhysicsLabInput>(
     () => loadPhysicsLabInput() ?? EMPTY_INPUT,
@@ -24,6 +28,11 @@ export function PhysicsLabPage({ appData }: { appData?: AppData }) {
   const [result, setResult] = useState<PhysicsLabResult | null>(null);
   const [recommendations, setRecommendations] = useState<PhysicsLabRecommendation[]>([]);
   const [selectedFlightId, setSelectedFlightId] = useState<string>('');
+  const [importedMetadata, setImportedMetadata] = useState<CaseMetadata | undefined>(undefined);
+  const [importError, setImportError] = useState<string>('');
+  const [pendingCases, setPendingCases] = useState<PendingCase[]>([]);
+  const [pendingCaseIdx, setPendingCaseIdx] = useState<number>(0);
+  const jsonImportRef = useRef<HTMLInputElement>(null);
 
   const handleChange = useCallback((v: PhysicsLabInput) => {
     setInput(v);
@@ -32,20 +41,26 @@ export function PhysicsLabPage({ appData }: { appData?: AppData }) {
     setRecommendations([]);
   }, []);
 
+  const loadCase = useCallback((v: PhysicsLabInput, meta?: CaseMetadata) => {
+    handleChange(v);
+    setImportedMetadata(meta);
+    setImportError('');
+    setPendingCases([]);
+  }, [handleChange]);
+
   const handleAnalyze = () => {
     const { result: r, recommendations: recs } = analyzePhysicsLab(input);
     setResult(r);
     setRecommendations(recs);
   };
 
-  const handleLoadSample = () => {
-    handleChange(sampleF1MFlight);
-  };
-
   const handleLoadFlight = () => {
     if (!selectedFlightId || !appData) return;
     const adapted = adaptFlightToPhysicsInput(selectedFlightId, appData);
-    if (adapted) handleChange(adapted);
+    if (adapted) {
+      loadCase(adapted, undefined);
+      setImportedMetadata(undefined);
+    }
   };
 
   const handleClear = () => {
@@ -54,6 +69,48 @@ export function PhysicsLabPage({ appData }: { appData?: AppData }) {
     setResult(null);
     setRecommendations([]);
     setSelectedFlightId('');
+    setImportedMetadata(undefined);
+    setImportError('');
+    setPendingCases([]);
+  };
+
+  const handleJsonFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!jsonImportRef.current) return;
+    jsonImportRef.current.value = '';
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const text = ev.target?.result as string;
+      const normalized = parsePhysicsLabFile(text);
+
+      if (!normalized.ok) {
+        setImportError(normalized.error);
+        return;
+      }
+
+      setImportError('');
+
+      if (normalized.ok === 'multi') {
+        // Store cases and let user pick
+        setPendingCases(normalized.cases);
+        setPendingCaseIdx(0);
+        return;
+      }
+
+      // Single case
+      saveToHistory(normalized.input, normalized.metadata);
+      loadCase(normalized.input, normalized.metadata);
+    };
+    reader.readAsText(file);
+  };
+
+  const handleLoadPendingCase = () => {
+    const chosen = pendingCases[pendingCaseIdx];
+    if (!chosen) return;
+    saveToHistory(chosen.input, chosen.metadata);
+    loadCase(chosen.input, chosen.metadata);
   };
 
   const flightOptions = appData ? listFlightOptions(appData) : [];
@@ -71,16 +128,66 @@ export function PhysicsLabPage({ appData }: { appData?: AppData }) {
         <button type="button" className="primary" onClick={handleAnalyze}>
           Analizar
         </button>
-        <button type="button" onClick={handleLoadSample}>
-          Cargar ejemplo F1M
+        <button type="button" onClick={() => loadCase(sampleF1MFlight, undefined)}>
+          Ejemplo F1M
         </button>
-        <button type="button" onClick={() => handleChange(sampleDanjoF1M)}>
-          Cargar caso Danjo
+        <button type="button" onClick={() => loadCase(sampleDanjoF1M, { label: 'Caso Danjo', sourceType: 'published_partial' })}>
+          Caso Danjo
         </button>
+        <button type="button" onClick={() => jsonImportRef.current?.click()}>
+          Importar caso JSON
+        </button>
+        <input
+          ref={jsonImportRef}
+          hidden
+          type="file"
+          accept="application/json,.json"
+          onChange={handleJsonFileChange}
+        />
         <button type="button" onClick={handleClear}>
           Limpiar
         </button>
       </div>
+
+      {importError && (
+        <div className="pl-import-error">{importError}</div>
+      )}
+
+      {pendingCases.length > 0 && (
+        <div className="pl-pending-cases">
+          <strong>El archivo contiene {pendingCases.length} casos.</strong>
+          <select
+            value={pendingCaseIdx}
+            onChange={(e) => setPendingCaseIdx(Number(e.target.value))}
+          >
+            {pendingCases.map((c, i) => (
+              <option key={i} value={i}>
+                {c.metadata.label ?? c.metadata.id ?? `Caso ${i + 1}`}
+                {c.metadata.sourceType ? ` [${c.metadata.sourceType}]` : ''}
+              </option>
+            ))}
+          </select>
+          <button type="button" className="primary" onClick={handleLoadPendingCase}>
+            Cargar caso seleccionado
+          </button>
+          <button type="button" onClick={() => setPendingCases([])}>
+            Cancelar
+          </button>
+        </div>
+      )}
+
+      {importedMetadata && (
+        <div className="pl-import-badge">
+          <span className="pl-import-badge__tag">Caso importado</span>
+          {importedMetadata.label && <span>{importedMetadata.label}</span>}
+          {importedMetadata.sourceType && (
+            <span className="pl-import-badge__source">{importedMetadata.sourceType}</span>
+          )}
+          {importedMetadata.id && (
+            <span className="pl-import-badge__id">#{importedMetadata.id}</span>
+          )}
+        </div>
+      )}
 
       {flightOptions.length > 0 && (
         <div className="pl-flight-selector">
@@ -123,7 +230,7 @@ export function PhysicsLabPage({ appData }: { appData?: AppData }) {
               )}
             </>
           ) : (
-            <p style={{ color: 'var(--color-text-muted, #888)', fontSize: '0.85rem' }}>
+            <p style={{ color: '#6b7280', fontSize: '0.85rem' }}>
               Completá los campos y presioná <strong>Analizar</strong> para ver resultados.
             </p>
           )}
