@@ -1,6 +1,12 @@
 import type * as React from 'react';
-import type { PhysicsLabResult, PhysicalValue } from '../core/types';
+import type { PhysicsLabResult, PhysicalValue, PropellerLoadClass } from '../core/types';
 import { ConfidenceBadge } from './ConfidenceBadge';
+
+const LOAD_CLASS_LABELS: Record<Exclude<PropellerLoadClass, 'unknown'>, string> = {
+  overloaded: 'alta absorción',
+  normal: 'normal',
+  unloaded: 'baja absorción',
+};
 
 function ValueRow({ label, pv, blocked }: {
   label: string;
@@ -78,7 +84,7 @@ export function PhysicsResultsPanel({
 
       {result.propellerLoadClass && result.propellerLoadClass !== 'unknown' && (
         <div className={`pl-propload pl-propload--${result.propellerLoadClass}`}>
-          Hélice: <strong>{result.propellerLoadClass}</strong>
+          Absorción de hélice: <strong>{LOAD_CLASS_LABELS[result.propellerLoadClass]}</strong>
         </div>
       )}
 

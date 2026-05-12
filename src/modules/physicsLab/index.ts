@@ -25,7 +25,7 @@ export { analyzeVpData } from './core/vpObserved';
 export { generateRecommendations } from './core/recommendations';
 export { applyGuards } from './core/safetyGuards';
 
-import type { PhysicsLabInput, PhysicsLabResult, PhysicsLabRecommendation } from './core/types';
+import type { ConfidenceLevel, PhysicalValue, PhysicsLabInput, PhysicsLabResult, PhysicsLabRecommendation } from './core/types';
 import { calculateLinearDensity } from './core/rubber';
 import { estimateEnergyRemaining } from './core/energy';
 import { calculateInitialPower, calculateAveragePowerEstimate, calculateRequiredPowerApprox } from './core/power';
@@ -33,10 +33,35 @@ import { calculateVerticalSpeed } from './core/flightMetrics';
 import { classifyPropellerLoad } from './core/propellerLoad';
 import { generateRecommendations } from './core/recommendations';
 
-function mergeConfidence(missing: string[]): PhysicsLabResult['confidence'] {
-  if (missing.length > 4) return 'low';
-  if (missing.length > 1) return 'medium';
+function minConfidence(...levels: ConfidenceLevel[]): ConfidenceLevel {
+  if (levels.includes('low')) return 'low';
+  if (levels.includes('medium')) return 'medium';
   return 'high';
+}
+
+function mergeConfidence(
+  criticalResults: (PhysicalValue<number> | undefined)[],
+  torqueBlocked: boolean,
+  missingCount: number,
+): ConfidenceLevel {
+  // Start from min of available critical results
+  const available = criticalResults.filter((r): r is PhysicalValue<number> => r !== undefined);
+  let confidence: ConfidenceLevel = available.length > 0
+    ? minConfidence(...available.map((r) => r.confidence))
+    : 'low';
+
+  // Torque unknown → cap at medium (no power data)
+  if (torqueBlocked) confidence = minConfidence(confidence, 'medium');
+
+  // Missing data caps
+  if (missingCount > 4) confidence = minConfidence(confidence, 'low');
+  else if (missingCount > 1) confidence = minConfidence(confidence, 'medium');
+
+  // Average power is always an assumption (estimated) → cap at medium
+  // because we never have a verified torque curve
+  confidence = minConfidence(confidence, 'medium');
+
+  return confidence;
 }
 
 export function analyzePhysicsLab(input: PhysicsLabInput): {
@@ -84,6 +109,23 @@ export function analyzePhysicsLab(input: PhysicsLabInput): {
   allWarnings.push(...loadRatio.warnings);
   allAssumptions.push(...loadRatio.assumptions);
 
+  // Hybrid data warning
+  const sourceType = input.sourceType;
+  if (sourceType === 'hybrid' || sourceType === 'published_partial') {
+    allWarnings.push(
+      'Advertencia: caso con datos parcialmente publicados o híbridos. ' +
+      'No usar para validar recomendaciones hasta completar con datos medidos.',
+    );
+  }
+
+  const uniqueMissing = [...new Set(allMissing)];
+  const criticalResults = [
+    ldCalc.result,
+    ipCalc.result,
+    erCalc.result,
+    loadRatio.result,
+  ];
+
   const result: PhysicsLabResult = {
     linearDensity: ldCalc.result,
     initialPower: ipCalc.result,
@@ -94,9 +136,9 @@ export function analyzePhysicsLab(input: PhysicsLabInput): {
     propellerLoadRatio: loadRatio.result,
     propellerLoadClass: loadClass,
     assumptions: [...new Set(allAssumptions)],
-    missingData: [...new Set(allMissing)],
+    missingData: uniqueMissing,
     warnings: [...new Set(allWarnings)],
-    confidence: mergeConfidence([...new Set(allMissing)]),
+    confidence: mergeConfidence(criticalResults, torqueUnitBlocked, uniqueMissing.length),
   };
 
   const recommendations = generateRecommendations(input, result);

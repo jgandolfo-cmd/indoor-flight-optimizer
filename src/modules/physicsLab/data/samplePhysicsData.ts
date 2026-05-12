@@ -40,6 +40,34 @@ export const sampleF1MFlight: PhysicsLabInput = {
     stability: 'stable',
     notes: 'Vuelo de ejemplo para Physics Lab. Datos estimados para demostración.',
   },
+  sourceType: 'synthetic',
+};
+
+// Danjo case: densidad publicada 2.2 g/m, loop 329 mm, 2 hebras.
+// rubberMassG = 2.2 × 0.329 × 2 = 1.4476 g
+// Datos de vuelo: parcialmente reales, torque no verificado.
+export const sampleDanjoF1M: PhysicsLabInput = {
+  category: 'F1M',
+  motor: {
+    name: 'Danjo F1M — goma 2.2 g/m',
+    rubberMassG: 1.4476,
+    linearDensityGPerM: 2.2,
+    loopLengthMm: 329,
+    strandCount: 2,
+    turnsLoaded: 1900,
+    backoffTurns: 6,
+    remainingTurns: 109,
+    launchTorqueUnit: 'unknown',
+  },
+  propeller: {
+    propType: 'variable_pitch',
+    vpMechanismMode: 'unknown',
+  },
+  flight: {
+    stability: 'stable',
+    notes: 'Caso Danjo: densidad publicada 2.2 g/m, loop 329 mm × 2 hebras. Torque sin verificar.',
+  },
+  sourceType: 'published_partial',
 };
 
 export const sampleHighPower: PhysicsLabInput = {
@@ -65,6 +93,7 @@ export const sampleHighPower: PhysicsLabInput = {
     stability: 'stable',
     notes: 'Caso con torque alto para demostrar advertencia de potencia.',
   },
+  sourceType: 'synthetic',
 };
 
 export const sampleUnknownTorqueUnit: PhysicsLabInput = {
@@ -84,4 +113,5 @@ export const sampleUnknownTorqueUnit: PhysicsLabInput = {
     stability: 'stable',
     notes: 'Caso con unidad de torque desconocida — no debe calcular potencia.',
   },
+  sourceType: 'synthetic',
 };

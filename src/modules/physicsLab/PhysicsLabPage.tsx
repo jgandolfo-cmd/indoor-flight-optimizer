@@ -5,7 +5,7 @@ import type { PhysicsLabInput, PhysicsLabRecommendation, PhysicsLabResult } from
 import { analyzePhysicsLab } from './index';
 import { adaptFlightToPhysicsInput, listFlightOptions } from './adapters/fromExistingData';
 import { loadPhysicsLabInput, savePhysicsLabInput, clearPhysicsLabInput } from './data/physicsLabStorage';
-import { sampleF1MFlight } from './data/samplePhysicsData';
+import { sampleF1MFlight, sampleDanjoF1M } from './data/samplePhysicsData';
 import { PhysicsInputPanel } from './components/PhysicsInputPanel';
 import { PhysicsResultsPanel } from './components/PhysicsResultsPanel';
 import { PhysicalEvidencePanel } from './components/PhysicalEvidencePanel';
@@ -72,6 +72,9 @@ export function PhysicsLabPage({ appData }: { appData?: AppData }) {
         </button>
         <button type="button" onClick={handleLoadSample}>
           Cargar ejemplo F1M
+        </button>
+        <button type="button" onClick={() => handleChange(sampleDanjoF1M)}>
+          Cargar caso Danjo
         </button>
         <button type="button" onClick={handleClear}>
           Limpiar

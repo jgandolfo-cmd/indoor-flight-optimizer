@@ -33,6 +33,7 @@ export type PhysicsLabInput = {
     id?: string;
     name?: string;
     rubberMassG?: number;
+    linearDensityGPerM?: number;
     loopLengthMm?: number;
     strandCount?: number;
     turnsLoaded?: number;
@@ -41,6 +42,7 @@ export type PhysicsLabInput = {
     launchTorque?: number;
     launchTorqueUnit?: 'Nmm' | 'mNm' | 'gcm' | 'ozin' | 'lbIn' | 'inLb' | 'lbfIn' | 'unknown';
   };
+  sourceType?: 'measured' | 'published_partial' | 'synthetic' | 'hybrid';
   propeller?: {
     id?: string;
     name?: string;

@@ -100,7 +100,11 @@ export function PhysicsInputPanel({ value, onChange }: Props) {
             </div>
             <div className="pl-input-row">
               <label>Masa goma (g)</label>
-              <input type="number" step="0.01" value={value.motor?.rubberMassG ?? ''} onChange={(e) => set('motor', 'rubberMassG', e.target.value)} />
+              <input type="number" step="0.0001" value={value.motor?.rubberMassG ?? ''} onChange={(e) => set('motor', 'rubberMassG', e.target.value)} />
+            </div>
+            <div className="pl-input-row">
+              <label>Densidad lineal (g/m)</label>
+              <input type="number" step="0.01" value={value.motor?.linearDensityGPerM ?? ''} onChange={(e) => set('motor', 'linearDensityGPerM', e.target.value)} />
             </div>
             <div className="pl-input-row">
               <label>Loop (mm)</label>
