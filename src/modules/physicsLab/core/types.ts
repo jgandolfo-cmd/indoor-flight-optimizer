@@ -42,6 +42,10 @@ export type PhysicsLabInput = {
     launchTorque?: number;
     launchTorqueUnit?: 'Nmm' | 'mNm' | 'gcm' | 'ozin' | 'lbIn' | 'inLb' | 'lbfIn' | 'unknown';
   };
+  venue?: {
+    name?: string;
+    ceilingHeightM?: number;
+  };
   sourceType?: 'measured' | 'published_partial' | 'synthetic' | 'hybrid';
   propeller?: {
     id?: string;
@@ -71,6 +75,8 @@ export type PhysicsLabInput = {
 
 export type PropellerLoadClass = 'high_absorption' | 'normal' | 'unloaded' | 'unknown';
 
+export type RpmCoherenceStatus = 'buena' | 'advertencia_leve' | 'advertencia_alta' | 'no_usar';
+
 export type PhysicsLabResult = {
   linearDensity?: PhysicalValue<number>;
   initialPower?: PhysicalValue<number>;
@@ -81,6 +87,10 @@ export type PhysicsLabResult = {
   energyRemaining?: PhysicalValue<number>;
   energyUseRatio?: PhysicalValue<number>;
   remainingTurnsRatio?: PhysicalValue<number>;
+  rpmEquivalent?: PhysicalValue<number>;
+  rpmCoherenceDevioPct?: number;
+  rpmCoherenceStatus?: RpmCoherenceStatus;
+  ceilingUse?: PhysicalValue<number>;
   propellerLoadRatio?: PhysicalValue<number>;
   propellerLoadClass?: PropellerLoadClass;
   assumptions: string[];

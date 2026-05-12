@@ -63,6 +63,24 @@ export function PhysicsInputPanel({ value, onChange }: Props) {
       </div>
 
       <section className="pl-section-group">
+        <button type="button" className="pl-section-toggle" onClick={() => toggle('venue')}>
+          Salón {open['venue'] ? '▲' : '▼'}
+        </button>
+        {open['venue'] && (
+          <div className="pl-input-grid">
+            <div className="pl-input-row">
+              <label>Nombre del salón</label>
+              <input type="text" value={value.venue?.name ?? ''} onChange={(e) => setStr('venue', 'name', e.target.value)} />
+            </div>
+            <div className="pl-input-row">
+              <label>Altura útil (m)</label>
+              <input type="number" step="0.1" value={value.venue?.ceilingHeightM ?? ''} onChange={(e) => set('venue', 'ceilingHeightM', e.target.value)} />
+            </div>
+          </div>
+        )}
+      </section>
+
+      <section className="pl-section-group">
         <button type="button" className="pl-section-toggle" onClick={() => toggle('model')}>
           Modelo {open['model'] ? '▲' : '▼'}
         </button>

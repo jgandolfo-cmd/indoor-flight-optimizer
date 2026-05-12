@@ -31,6 +31,7 @@ import { estimateEnergyRemaining } from './core/energy';
 import { calculateInitialPower, calculateAveragePowerEstimate, calculateRequiredPowerApprox } from './core/power';
 import { calculateVerticalSpeed } from './core/flightMetrics';
 import { classifyPropellerLoad } from './core/propellerLoad';
+import { checkRpmCoherence, calculateCeilingUse } from './core/coherence';
 import { generateRecommendations } from './core/recommendations';
 
 function minConfidence(...levels: ConfidenceLevel[]): ConfidenceLevel {
@@ -43,6 +44,7 @@ function mergeConfidence(
   criticalResults: (PhysicalValue<number> | undefined)[],
   torqueBlocked: boolean,
   missingCount: number,
+  rpmCoherenceDegraded = false,
 ): ConfidenceLevel {
   // Start from min of available critical results
   const available = criticalResults.filter((r): r is PhysicalValue<number> => r !== undefined);
@@ -60,6 +62,9 @@ function mergeConfidence(
   // Average power is always an assumption (estimated) → cap at medium
   // because we never have a verified torque curve
   confidence = minConfidence(confidence, 'medium');
+
+  // RPM coherence failure forces low
+  if (rpmCoherenceDegraded) confidence = 'low';
 
   return confidence;
 }
@@ -109,6 +114,20 @@ export function analyzePhysicsLab(input: PhysicsLabInput): {
   allWarnings.push(...loadRatio.warnings);
   allAssumptions.push(...loadRatio.assumptions);
 
+  // RPM coherence check
+  const coherence = checkRpmCoherence(input.motor, input.flight);
+  allMissing.push(...coherence.missing);
+  allWarnings.push(...coherence.warnings);
+
+  // Ceiling use
+  const ceilingCalc = calculateCeilingUse(input.flight, input.venue);
+  const ceilingUse: PhysicsLabResult['ceilingUse'] = 'missing' in ceilingCalc
+    ? undefined
+    : ceilingCalc;
+  if ('missing' in ceilingCalc && input.venue?.ceilingHeightM === undefined && input.flight?.maxAltitudeM !== undefined) {
+    allMissing.push(ceilingCalc.missing);
+  }
+
   // Hybrid data warning
   const sourceType = input.sourceType;
   if (sourceType === 'hybrid' || sourceType === 'published_partial') {
@@ -153,12 +172,16 @@ export function analyzePhysicsLab(input: PhysicsLabInput): {
     requiredPower: rpCalc.result,
     energyUseRatio: erCalc.result,
     remainingTurnsRatio,
+    rpmEquivalent: coherence.rpmEquivalent,
+    rpmCoherenceDevioPct: coherence.devioPct,
+    rpmCoherenceStatus: coherence.status === 'sin_datos' ? undefined : coherence.status,
+    ceilingUse,
     propellerLoadRatio: loadRatio.result,
     propellerLoadClass: loadClass,
     assumptions: [...new Set(allAssumptions)],
     missingData: uniqueMissing,
     warnings: [...new Set(allWarnings)],
-    confidence: mergeConfidence(criticalResults, torqueUnitBlocked, uniqueMissing.length),
+    confidence: mergeConfidence(criticalResults, torqueUnitBlocked, uniqueMissing.length, coherence.degradeConfidence),
   };
 
   const recommendations = generateRecommendations(input, result);

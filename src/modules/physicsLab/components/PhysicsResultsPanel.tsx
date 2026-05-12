@@ -1,6 +1,20 @@
 import type * as React from 'react';
-import type { PhysicsLabResult, PhysicalValue, PropellerLoadClass } from '../core/types';
+import type { PhysicsLabResult, PhysicalValue, PropellerLoadClass, RpmCoherenceStatus } from '../core/types';
 import { ConfidenceBadge } from './ConfidenceBadge';
+
+const RPM_COHERENCE_LABELS: Record<RpmCoherenceStatus, string> = {
+  buena: 'coherencia buena',
+  advertencia_leve: 'desvío leve',
+  advertencia_alta: 'desvío alto — confianza degradada',
+  no_usar: 'no usar RPM media para recomendación fina',
+};
+
+const RPM_COHERENCE_CLASS: Record<RpmCoherenceStatus, string> = {
+  buena: 'pl-coherence--ok',
+  advertencia_leve: 'pl-coherence--warn',
+  advertencia_alta: 'pl-coherence--alert',
+  no_usar: 'pl-coherence--alert',
+};
 
 const LOAD_CLASS_LABELS: Record<Exclude<PropellerLoadClass, 'unknown'>, string> = {
   high_absorption: 'absorción alta',
@@ -83,7 +97,25 @@ export function PhysicsResultsPanel({
           <ValueRow label="Potencia requerida aprox." pv={result.requiredPower} />
           <ValueRow label="Remanente de vueltas" pv={result.remainingTurnsRatio} decimals={1} />
           <ValueRow label="Uso energético estimado*" pv={result.energyUseRatio} />
-          <ValueRow label="Ratio carga de hélice" pv={result.propellerLoadRatio} />
+          <ValueRow label="Uso de techo" pv={result.ceilingUse} decimals={1} />
+          <ValueRow label="Absorción de hélice (ratio RPM)" pv={result.propellerLoadRatio} />
+          <tr><td colSpan={4} className="pl-table-separator">Coherencia de datos</td></tr>
+          <ValueRow label="RPM equivalente (vueltas usadas)" pv={result.rpmEquivalent} decimals={1} />
+          {result.rpmCoherenceDevioPct !== undefined && (
+            <tr>
+              <td>Desvío RPM media</td>
+              <td>
+                <strong>{result.rpmCoherenceDevioPct.toFixed(1)} %</strong>
+              </td>
+              <td colSpan={2}>
+                {result.rpmCoherenceStatus && (
+                  <span className={`pl-coherence ${RPM_COHERENCE_CLASS[result.rpmCoherenceStatus]}`}>
+                    {RPM_COHERENCE_LABELS[result.rpmCoherenceStatus]}
+                  </span>
+                )}
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
 

@@ -96,6 +96,12 @@ export function generateReport(
   sections.push('── DATOS CARGADOS ──────────────────────────────────');
   sections.push(`  Categoría: ${input.category ?? 'F1M (por defecto)'}`);
 
+  if (input.venue) {
+    sections.push('  Salón:');
+    if (input.venue.name) sections.push(line('    nombre', input.venue.name));
+    sections.push(line('    altura útil', input.venue.ceilingHeightM, 'm'));
+  }
+
   if (input.model) {
     sections.push('  Modelo:');
     sections.push(line('    nombre', input.model.name));
@@ -158,9 +164,28 @@ export function generateReport(
   sections.push(pvLine('  Velocidad vertical media', result.verticalSpeed));
   sections.push(pvLine('  Potencia requerida aprox.', result.requiredPower));
   sections.push(`  Remanente de vueltas: ${result.remainingTurnsRatio ? result.remainingTurnsRatio.value.toFixed(1) + ' %' : '—'}`);
-  sections.push(`  Uso energético estimado: ${result.energyUseRatio ? (result.energyUseRatio.value * 100).toFixed(1) + ' %' : '—'}`);
+  sections.push(`  Uso energético estimado: ${result.energyUseRatio ? (result.energyUseRatio.value * 100).toFixed(1) + ' % (estimado, sin curva torque-vueltas)' : '—'}`);
+  if (result.ceilingUse) {
+    sections.push(`  Uso de techo: ${result.ceilingUse.value.toFixed(1)} % [${result.ceilingUse.notes ?? ''}]`);
+  }
   if (result.propellerLoadClass && result.propellerLoadClass !== 'unknown') {
-    sections.push(`  Absorción de hélice: ${PROP_LOAD_LABELS[result.propellerLoadClass] ?? result.propellerLoadClass}`);
+    sections.push(`  Absorción de hélice por RPM: ${PROP_LOAD_LABELS[result.propellerLoadClass] ?? result.propellerLoadClass}`);
+  }
+
+  if (result.rpmEquivalent) {
+    sections.push('');
+    sections.push('  Coherencia de datos:');
+    sections.push(`    RPM equivalente (vueltas usadas): ${result.rpmEquivalent.value.toFixed(1)} rpm`);
+    sections.push(`    Fuente: ${result.rpmEquivalent.source ?? '—'}`);
+    if (result.rpmCoherenceDevioPct !== undefined) {
+      const statusLabels: Record<string, string> = {
+        buena: 'coherencia buena',
+        advertencia_leve: 'desvío leve',
+        advertencia_alta: 'DESVÍO ALTO — confianza degradada',
+        no_usar: 'NO USAR RPM media para recomendación fina',
+      };
+      sections.push(`    Desvío respecto a RPM media registrada: ${result.rpmCoherenceDevioPct.toFixed(1)} % — ${statusLabels[result.rpmCoherenceStatus ?? ''] ?? ''}`);
+    }
   }
   sections.push('');
 

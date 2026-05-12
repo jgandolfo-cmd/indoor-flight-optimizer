@@ -659,6 +659,30 @@
   min-height: unset;
 }
 
+/* Table section separator */
+.pl-table-separator {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+  background: #f9fafb;
+  padding: 0.4rem 0.5rem;
+}
+
+/* RPM coherence badge */
+.pl-coherence {
+  display: inline-block;
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+  font-size: 0.72rem;
+  border: 1px solid transparent;
+}
+
+.pl-coherence--ok    { background: #f0fdf4; color: #16a34a; border-color: #bbf7d0; }
+.pl-coherence--warn  { background: #fffbeb; color: #d97706; border-color: #fde68a; }
+.pl-coherence--alert { background: #fef2f2; color: #dc2626; border-color: #fecaca; }
+
 /* Confidence note */
 .pl-confidence-note {
   font-size: 0.72rem;
