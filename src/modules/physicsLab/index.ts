@@ -136,11 +136,11 @@ export function analyzePhysicsLab(input: PhysicsLabInput): {
     : undefined;
   const remainingTurnsRatio: PhysicsLabResult['remainingTurnsRatio'] = rrValue !== undefined
     ? {
-        value: Math.round(rrValue * 1000) / 1000,
+        value: Math.round(rrValue * 1000) / 10,
         unit: '%',
         provenance: 'calculated',
         confidence: 'high',
-        source: `${motor?.remainingTurns} / ${netTurns}`,
+        source: `${motor?.remainingTurns} / ${netTurns} × 100`,
         notes: `${(rrValue * 100).toFixed(1)}% de vueltas netas restantes al aterrizar`,
       }
     : undefined;

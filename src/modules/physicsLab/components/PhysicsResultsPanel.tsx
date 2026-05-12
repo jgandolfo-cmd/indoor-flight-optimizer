@@ -8,10 +8,11 @@ const LOAD_CLASS_LABELS: Record<Exclude<PropellerLoadClass, 'unknown'>, string> 
   unloaded: 'baja absorción',
 };
 
-function ValueRow({ label, pv, blocked }: {
+function ValueRow({ label, pv, blocked, decimals = 4 }: {
   label: string;
   pv?: PhysicalValue<number>;
   blocked?: string;
+  decimals?: number;
 }) {
   if (blocked) {
     return (
@@ -32,7 +33,7 @@ function ValueRow({ label, pv, blocked }: {
   return (
     <tr>
       <td>{label}</td>
-      <td><strong>{pv.value.toFixed(4)}</strong> {pv.unit}</td>
+      <td><strong>{pv.value.toFixed(decimals)}</strong> {pv.unit}</td>
       <td><ConfidenceBadge level={pv.confidence} /></td>
       <td className="pl-value--source">{pv.source ?? pv.notes ?? ''}</td>
     </tr>
@@ -80,7 +81,7 @@ export function PhysicsResultsPanel({
           />
           <ValueRow label="Velocidad vertical media" pv={result.verticalSpeed} />
           <ValueRow label="Potencia requerida aprox." pv={result.requiredPower} />
-          <ValueRow label="Remanente de vueltas" pv={result.remainingTurnsRatio} />
+          <ValueRow label="Remanente de vueltas" pv={result.remainingTurnsRatio} decimals={1} />
           <ValueRow label="Uso energético estimado*" pv={result.energyUseRatio} />
           <ValueRow label="Ratio carga de hélice" pv={result.propellerLoadRatio} />
         </tbody>

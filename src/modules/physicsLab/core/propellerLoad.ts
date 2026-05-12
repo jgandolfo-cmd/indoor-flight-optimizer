@@ -42,7 +42,7 @@ export function classifyPropellerLoad(flight: PhysicsLabInput['flight']): {
       },
       missing: [],
       warnings: [],
-      assumptions: ['clasificación: >70% sobrecarada, 40–70% normal, <40% descargada'],
+      assumptions: ['clasificación: >70% alta absorción, 40–70% normal, <40% descargada'],
     },
   };
 }
