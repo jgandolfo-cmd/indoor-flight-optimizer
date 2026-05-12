@@ -157,7 +157,9 @@ const sessionObjectiveLabels: Record<SessionObjective, string> = {
   competencia: 'Competencia',
 };
 
-const ALLOWED_USERS = ['jgandolfo@gmail.com'];
+const ALLOWED_USERS = ['jgandolfo@gmail.com',
+  'pedroformento@gmail.com',
+  'sonteccientifica@gmail.com'];
 
 function App() {
   const [view, setView] = useState<View>('dashboard');
