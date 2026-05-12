@@ -347,3 +347,15 @@
   height: auto;
   min-height: unset;
 }
+
+/* Unit note */
+.pl-unit-note {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin: 0.1rem 0 0.2rem;
+  line-height: 1.4;
+}
+
+.pl-unit-note strong {
+  color: #374151;
+}

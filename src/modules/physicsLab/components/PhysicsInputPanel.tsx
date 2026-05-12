@@ -129,16 +129,24 @@ export function PhysicsInputPanel({ value, onChange }: Props) {
             <div className="pl-input-row">
               <label>Unidad torque</label>
               <select
-                value={value.motor?.launchTorqueUnit ?? ''}
+                value={value.motor?.launchTorqueUnit ?? 'lbIn'}
                 onChange={(e) => setStr('motor', 'launchTorqueUnit', e.target.value)}
               >
-                <option value="">Sin especificar</option>
+                <option value="lbIn">lb·in (libra-pulgada)</option>
+                <option value="inLb">in·lb (ídem lb·in)</option>
+                <option value="lbfIn">lbf·in (ídem lb·in)</option>
                 <option value="mNm">mN·m</option>
                 <option value="Nmm">N·mm</option>
                 <option value="gcm">g·cm</option>
                 <option value="ozin">oz·in</option>
-                <option value="unknown">Desconocida</option>
+                <option value="unknown">Desconocida (bloquea cálculo)</option>
               </select>
+            </div>
+            <div className="pl-input-row pl-input-row--full">
+              <p className="pl-unit-note">
+                Usar <strong>lb·in</strong> o <strong>in·lb</strong> para torque en libra-pulgada.
+                <strong> lb/in no es torque</strong> (es rigidez lineal) — no se acepta esa notación.
+              </p>
             </div>
           </div>
         )}

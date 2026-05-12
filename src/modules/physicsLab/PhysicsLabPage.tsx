@@ -12,7 +12,9 @@ import { PhysicalEvidencePanel } from './components/PhysicalEvidencePanel';
 import { RecommendationCard } from './components/RecommendationCard';
 import './physicsLab.css';
 
-const EMPTY_INPUT: PhysicsLabInput = {};
+const EMPTY_INPUT: PhysicsLabInput = {
+  motor: { launchTorqueUnit: 'lbIn' },
+};
 
 export function PhysicsLabPage({ appData }: { appData?: AppData }) {
   const [input, setInput] = useState<PhysicsLabInput>(

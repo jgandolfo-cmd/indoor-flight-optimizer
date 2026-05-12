@@ -39,7 +39,7 @@ export type PhysicsLabInput = {
     backoffTurns?: number;
     remainingTurns?: number;
     launchTorque?: number;
-    launchTorqueUnit?: 'Nmm' | 'mNm' | 'gcm' | 'ozin' | 'unknown';
+    launchTorqueUnit?: 'Nmm' | 'mNm' | 'gcm' | 'ozin' | 'lbIn' | 'inLb' | 'lbfIn' | 'unknown';
   };
   propeller?: {
     id?: string;

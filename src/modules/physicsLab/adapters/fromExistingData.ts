@@ -34,14 +34,14 @@ export function adaptFlightToPhysicsInput(
           backoffTurns: flight.backOff,
           remainingTurns: flight.remainingTurns,
           launchTorque: flight.launchTorque,
-          launchTorqueUnit: 'Nmm',
+          launchTorqueUnit: 'unknown',
         }
       : {
           turnsLoaded: flight.turnsLoaded,
           backoffTurns: flight.backOff,
           remainingTurns: flight.remainingTurns,
           launchTorque: flight.launchTorque,
-          launchTorqueUnit: 'Nmm',
+          launchTorqueUnit: 'unknown',
         },
 
     propeller: propeller

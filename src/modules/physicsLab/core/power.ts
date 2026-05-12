@@ -1,5 +1,5 @@
 import type { CalcOutput, PhysicsLabInput } from './types';
-import { convertTorqueToNm, gramsToKilograms, rpmToRadPerSecond } from './units';
+import { convertTorqueToNm, gramsToKilograms, rpmToRadPerSecond, type TorqueUnit } from './units';
 import { GRAVITY_MPS2 } from './constants';
 
 const F1M_POWER_WARN_W = 1.0;
@@ -26,7 +26,7 @@ export function calculateInitialPower(
     };
   }
 
-  const torqueNm = convertTorqueToNm(motor!.launchTorque!, torqueUnit);
+  const torqueNm = convertTorqueToNm(motor!.launchTorque!, torqueUnit as TorqueUnit);
   const omegaRad = rpmToRadPerSecond(flight!.rpmInitial!);
 
   // P[W] = torque[N·m] × ω[rad/s]
