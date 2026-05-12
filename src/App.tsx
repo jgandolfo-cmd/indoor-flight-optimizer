@@ -155,7 +155,7 @@ const sessionObjectiveLabels: Record<SessionObjective, string> = {
   buscar_optimo: 'Buscar optimo',
   comparar_motores: 'Comparar motores',
   ajustar_vp: 'Ajustar VP',
-  validar_baseline: 'Validar baseline',
+  validar_baseline: 'Validar base',
   trimado: 'Trimado',
   competencia: 'Competencia',
 };
@@ -607,15 +607,15 @@ function SessionView({
       ?? data.flightConfigurations.find((config) => config.id === activeSession.baselineConfigId)
       ?? (previousConfig ?? undefined);
     if (!baseline) {
-      onChange(data, 'No hay baseline disponible para revertir.');
+      onChange(data, 'No hay configuración base disponible para revertir.');
       return;
     }
     const config = createSuggestedConfiguration({
       id: makeId('config-revert'),
       base: baseline,
-      variable: 'revertir baseline',
+      variable: 'revertir al base',
       exactAdjustment: 'volver a configuracion anterior',
-      reason: 'Revertir al mejor baseline disponible.',
+      reason: 'Revertir a la mejor configuración base disponible.',
       sessionId: activeSession.id,
     });
     onChange({ ...data, flightConfigurations: [...data.flightConfigurations, config] }, 'Configuracion de reversión creada.');
@@ -645,7 +645,7 @@ function SessionView({
               <dt>Config actual</dt>
               <dd>{lastFlight ? `${lastFlight.turnsLoaded} vueltas, back-off ${lastFlight.backOff}, motor ${findMotor(lastFlight.motorId)?.name}` : 'Esperando primer vuelo.'}</dd>
               <dt>Mejor vuelo</dt>
-              <dd>{bestFlight ? `${bestFlight.durationSec}s, score ${scoreFlight(bestFlight, findVenue(bestFlight.venueId), findMotor(bestFlight.motorId))}` : 'Sin mejor vuelo aun.'}</dd>
+              <dd>{bestFlight ? `${bestFlight.durationSec}s, puntaje ${scoreFlight(bestFlight, findVenue(bestFlight.venueId), findMotor(bestFlight.motorId))}` : 'Sin mejor vuelo aun.'}</dd>
               <dt>Comparacion anterior</dt>
               <dd>{previousComparison ? `${previousComparison.decision}: ${previousComparison.explanation}` : 'Sin comparacion.'}</dd>
               <dt>Cambio aplicado</dt>
@@ -661,9 +661,9 @@ function SessionView({
               <dt>Energia</dt>
               <dd>{ceilingReference?.energyUseSummary ?? 'Sin lectura.'}</dd>
               <dt>Recomendacion</dt>
-              <dd>{latestImpact ? latestImpact.recommendation : ceilingReference ? `${ceilingReference.recommendation} Ajuste: ${ceilingReference.exactAdjustment}` : previousComparison?.recommendation ?? 'cargar vuelo baseline'}</dd>
+              <dd>{latestImpact ? latestImpact.recommendation : ceilingReference ? `${ceilingReference.recommendation} Ajuste: ${ceilingReference.exactAdjustment}` : previousComparison?.recommendation ?? 'cargar vuelo base'}</dd>
               <dt>Contra mejor</dt>
-              <dd>{bestComparison ? `score delta ${bestComparison.scoreDelta}, duracion ${bestComparison.durationDeltaPct}%` : 'Sin comparacion.'}</dd>
+              <dd>{bestComparison ? `variación puntaje ${bestComparison.scoreDelta}, duración ${bestComparison.durationDeltaPct}%` : 'Sin comparacion.'}</dd>
               <dt>Mantener</dt>
               <dd>{ceilingReference?.keepConstant.join(', ') ?? 'una sola variable por ensayo; mantener modelo, salon y trimado salvo que la recomendacion diga trimado'}</dd>
             </dl>
@@ -687,13 +687,13 @@ function SessionView({
             <div className="actions">
               <button type="button" onClick={repeatSameConfiguration}>Repetir misma configuracion</button>
               <button type="button" onClick={applyRecommendation}>Aplicar recomendacion</button>
-              <button type="button" onClick={revertToBaseline}>Revertir al baseline</button>
+              <button type="button" onClick={revertToBaseline}>Revertir al base</button>
               <button type="button" onClick={saveOptimal}>Guardar como optima</button>
               <button type="button" onClick={closeSession}>Cerrar sesion</button>
             </div>
             <div className="table-wrap">
               <table>
-                <thead><tr><th>Vuelo</th><th>Duracion</th><th>Score</th><th>Techo</th><th>Rem.</th></tr></thead>
+                <thead><tr><th>Vuelo</th><th>Duracion</th><th>Puntaje</th><th>Techo</th><th>Rem.</th></tr></thead>
                 <tbody>
                   {sessionFlights.map((flight) => {
                     const metrics = calculateFlightMetrics(flight, findVenue(flight.venueId), findMotor(flight.motorId));
@@ -881,7 +881,7 @@ function MotorsView({
   return (
     <EntitySection title="Nuevo motor" onSubmit={submit}>
       <Input name="name" label="Nombre" required />
-      <Select name="batchId" label="Batch" options={data.rubberBatches.map((batch) => [batch.id, batch.name])} required />
+      <Select name="batchId" label="Lote" options={data.rubberBatches.map((batch) => [batch.id, batch.name])} required />
       <Input name="loopLengthMm" label="Longitud loop (mm)" type="number" step="1" required />
       <Input name="weightG" label="Peso (g)" type="number" step="0.01" required />
       <Input name="strands" label="Hebras" type="number" step="1" required defaultValue="1" />
@@ -1286,7 +1286,7 @@ function OptimalsView({
         <table>
           <thead>
             <tr>
-              <th>Nombre</th><th>Modelo</th><th>Helice</th><th>Salon/tipo</th><th>Motor</th><th>Vueltas</th><th>Back-off</th><th>VP</th><th>Duracion</th><th>Score</th><th>Conf.</th><th></th>
+              <th>Nombre</th><th>Modelo</th><th>Helice</th><th>Salon/tipo</th><th>Motor</th><th>Vueltas</th><th>Back-off</th><th>VP</th><th>Duracion</th><th>Puntaje</th><th>Conf.</th><th></th>
             </tr>
           </thead>
           <tbody>

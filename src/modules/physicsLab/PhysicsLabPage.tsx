@@ -15,6 +15,13 @@ import { PhysicsChartsPanel } from './components/PhysicsChartsPanel';
 import { RecommendationCard } from './components/RecommendationCard';
 import './physicsLab.css';
 
+const SOURCE_TYPE_LABELS: Record<string, string> = {
+  measured: 'medido',
+  published_partial: 'publicado parcial',
+  synthetic: 'sintético',
+  hybrid: 'híbrido',
+};
+
 const EMPTY_INPUT: PhysicsLabInput = {
   motor: { launchTorqueUnit: 'lbIn' },
 };
@@ -181,7 +188,9 @@ export function PhysicsLabPage({ appData }: { appData?: AppData }) {
           <span className="pl-import-badge__tag">Caso importado</span>
           {importedMetadata.label && <span>{importedMetadata.label}</span>}
           {importedMetadata.sourceType && (
-            <span className="pl-import-badge__source">{importedMetadata.sourceType}</span>
+            <span className="pl-import-badge__source">
+              {SOURCE_TYPE_LABELS[importedMetadata.sourceType] ?? importedMetadata.sourceType}
+            </span>
           )}
           {importedMetadata.id && (
             <span className="pl-import-badge__id">#{importedMetadata.id}</span>
