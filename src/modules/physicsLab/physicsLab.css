@@ -1,5 +1,53 @@
-/* Physics Lab module — isolated styles, prefixed with .pl- */
+/* Physics Lab module — isolated styles, prefixed with .pl- / .physics-lab */
 
+/* Root wrapper: force light color scheme so browser native controls render correctly */
+.physics-lab {
+  color-scheme: light;
+  color: #111827;
+  background-color: transparent;
+}
+
+/* All form controls scoped to this module */
+.physics-lab input,
+.physics-lab select,
+.physics-lab textarea {
+  background-color: #ffffff;
+  color: #111827;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  padding: 0.25rem 0.4rem;
+  font-size: 0.85rem;
+  font-family: inherit;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.physics-lab input:focus,
+.physics-lab select:focus,
+.physics-lab textarea:focus {
+  outline: 2px solid #6366f1;
+  outline-offset: 1px;
+  border-color: #6366f1;
+}
+
+.physics-lab input::placeholder,
+.physics-lab textarea::placeholder {
+  color: #6b7280;
+}
+
+/* Ensure select options are always light */
+.physics-lab select option {
+  background-color: #ffffff;
+  color: #111827;
+}
+
+/* Labels */
+.physics-lab label {
+  color: #374151;
+  font-size: 0.8rem;
+}
+
+/* Page layout */
 .pl-page {
   padding: 1rem;
   max-width: 1100px;
@@ -9,11 +57,12 @@
   margin-bottom: 0.25rem;
   font-size: 1.1rem;
   font-weight: 600;
+  color: #111827;
 }
 
 .pl-subtitle {
   font-size: 0.8rem;
-  color: var(--color-text-muted, #888);
+  color: #6b7280;
   margin-bottom: 1rem;
 }
 
@@ -43,16 +92,18 @@
 }
 
 .pl-section-group {
-  border: 1px solid var(--color-border, #333);
-  border-radius: 4px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
   overflow: hidden;
+  background: #ffffff;
 }
 
 .pl-section-toggle {
   width: 100%;
-  background: var(--color-surface2, #1e1e2e);
+  background: #f9fafb;
   border: none;
-  color: inherit;
+  border-bottom: 1px solid #e5e7eb;
+  color: #374151;
   padding: 0.4rem 0.75rem;
   text-align: left;
   font-size: 0.85rem;
@@ -61,14 +112,15 @@
 }
 
 .pl-section-toggle:hover {
-  background: var(--color-surface3, #2a2a3e);
+  background: #f3f4f6;
 }
 
 .pl-input-grid {
   padding: 0.5rem 0.75rem;
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.35rem;
+  background: #ffffff;
 }
 
 .pl-input-row {
@@ -82,41 +134,28 @@
   grid-template-columns: 1fr;
 }
 
-.pl-input-row label {
-  font-size: 0.8rem;
-  color: var(--color-text-muted, #aaa);
-}
-
-.pl-input-row input,
-.pl-input-row select,
-.pl-input-row textarea {
-  font-size: 0.85rem;
-  padding: 0.2rem 0.4rem;
-  background: var(--color-input-bg, #111);
-  color: inherit;
-  border: 1px solid var(--color-border, #333);
-  border-radius: 3px;
-}
-
-.pl-input-row textarea {
-  resize: vertical;
-}
-
 /* Results */
 .pl-results {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 0.75rem;
 }
 
-.pl-results h3, .pl-evidence h3 {
+.pl-results h3,
+.pl-evidence h3 {
   font-size: 0.95rem;
   font-weight: 600;
+  color: #111827;
   margin-bottom: 0.25rem;
 }
 
 .pl-confidence-overall {
   font-size: 0.85rem;
+  color: #374151;
 }
 
 .pl-table {
@@ -128,20 +167,22 @@
 .pl-table th {
   text-align: left;
   padding: 0.3rem 0.5rem;
-  border-bottom: 1px solid var(--color-border, #333);
-  font-weight: 500;
-  color: var(--color-text-muted, #aaa);
+  border-bottom: 2px solid #e5e7eb;
+  font-weight: 600;
+  color: #6b7280;
+  background: #f9fafb;
 }
 
 .pl-table td {
   padding: 0.3rem 0.5rem;
-  border-bottom: 1px solid var(--color-border-subtle, #222);
+  border-bottom: 1px solid #f3f4f6;
   vertical-align: top;
+  color: #111827;
 }
 
-.pl-value--missing { color: var(--color-text-muted, #888); }
-.pl-value--blocked { color: #e06c75; font-style: italic; }
-.pl-value--source { color: var(--color-text-muted, #888); font-size: 0.75rem; }
+.pl-value--missing { color: #9ca3af; }
+.pl-value--blocked { color: #dc2626; font-style: italic; }
+.pl-value--source { color: #9ca3af; font-size: 0.75rem; }
 
 /* Confidence badge */
 .pl-confidence {
@@ -154,9 +195,9 @@
   letter-spacing: 0.03em;
 }
 
-.pl-confidence--low { background: #3a2020; color: #e06c75; }
-.pl-confidence--medium { background: #3a3020; color: #e5c07b; }
-.pl-confidence--high { background: #1a3020; color: #98c379; }
+.pl-confidence--low  { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+.pl-confidence--medium { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
+.pl-confidence--high { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
 
 /* Risk badge */
 .pl-risk {
@@ -164,11 +205,12 @@
   padding: 0.1rem 0.4rem;
   border-radius: 3px;
   font-size: 0.72rem;
+  border: 1px solid transparent;
 }
 
-.pl-risk--low { background: #1a3020; color: #98c379; }
-.pl-risk--medium { background: #3a3020; color: #e5c07b; }
-.pl-risk--high { background: #3a2020; color: #e06c75; }
+.pl-risk--low    { background: #f0fdf4; color: #16a34a; border-color: #bbf7d0; }
+.pl-risk--medium { background: #fffbeb; color: #d97706; border-color: #fde68a; }
+.pl-risk--high   { background: #fef2f2; color: #dc2626; border-color: #fecaca; }
 
 /* Propeller load */
 .pl-propload {
@@ -176,11 +218,12 @@
   padding: 0.25rem 0.6rem;
   border-radius: 4px;
   font-size: 0.82rem;
+  border: 1px solid transparent;
 }
 
-.pl-propload--normal { background: #1a3020; color: #98c379; }
-.pl-propload--overloaded { background: #3a2020; color: #e06c75; }
-.pl-propload--unloaded { background: #3a3020; color: #e5c07b; }
+.pl-propload--normal    { background: #f0fdf4; color: #16a34a; border-color: #bbf7d0; }
+.pl-propload--overloaded { background: #fef2f2; color: #dc2626; border-color: #fecaca; }
+.pl-propload--unloaded  { background: #fffbeb; color: #d97706; border-color: #fde68a; }
 
 /* Sections */
 .pl-section {
@@ -193,7 +236,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: var(--color-text-muted, #aaa);
+  color: #6b7280;
   margin-bottom: 0.25rem;
 }
 
@@ -202,12 +245,13 @@
   padding-left: 1.2rem;
 }
 
-.pl-section li { margin-bottom: 0.15rem; }
+.pl-section li { margin-bottom: 0.15rem; color: #374151; }
 
-.pl-section--missing { color: #e06c75; }
-.pl-section--warnings { color: #e5c07b; }
-.pl-section--assumptions { color: var(--color-text-muted, #aaa); }
-.pl-section--donottouch { color: #61afef; }
+.pl-section--missing  { }
+.pl-section--missing li { color: #dc2626; }
+.pl-section--warnings li { color: #d97706; }
+.pl-section--assumptions li { color: #6b7280; }
+.pl-section--donottouch li { color: #2563eb; }
 
 /* Recommendation cards */
 .pl-recommendations {
@@ -218,17 +262,19 @@
 }
 
 .pl-rec-card {
-  border: 1px solid var(--color-border, #333);
+  border: 1px solid #e5e7eb;
   border-radius: 6px;
   padding: 0.75rem;
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
+  background: #ffffff;
 }
 
 .pl-rec-card--blocked {
-  border-color: #555;
-  opacity: 0.75;
+  border-color: #d1d5db;
+  background: #f9fafb;
+  opacity: 0.8;
 }
 
 .pl-rec-card__header {
@@ -236,16 +282,19 @@
   gap: 0.5rem;
   align-items: center;
   flex-wrap: wrap;
+  color: #111827;
 }
 
 .pl-rec-card__text {
   font-size: 0.88rem;
   margin: 0;
+  color: #374151;
 }
 
 .pl-rec-blocked {
-  background: #3a2020;
-  color: #e06c75;
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
   padding: 0.3rem 0.5rem;
   border-radius: 3px;
   font-size: 0.82rem;
@@ -253,13 +302,15 @@
 
 .pl-rec-magnitude {
   font-size: 0.82rem;
-  color: var(--color-text-muted, #aaa);
+  color: #6b7280;
 }
 
 .pl-rec-magnitude code {
-  background: var(--color-surface2, #1e1e2e);
+  background: #f3f4f6;
+  color: #111827;
   padding: 0.1rem 0.3rem;
   border-radius: 2px;
+  border: 1px solid #e5e7eb;
 }
 
 /* Evidence panel */
@@ -268,6 +319,10 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 0.75rem;
 }
 
 /* Flight selector */
@@ -277,15 +332,18 @@
   align-items: center;
   flex-wrap: wrap;
   font-size: 0.85rem;
+  margin-bottom: 0.75rem;
+  color: #374151;
 }
 
 .pl-flight-selector select {
   flex: 1;
   min-width: 200px;
-  font-size: 0.85rem;
-  padding: 0.3rem 0.4rem;
-  background: var(--color-input-bg, #111);
-  color: inherit;
-  border: 1px solid var(--color-border, #333);
-  border-radius: 3px;
+}
+
+/* Category row */
+.pl-input-row select,
+.pl-flight-selector select {
+  height: auto;
+  min-height: unset;
 }

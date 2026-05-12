@@ -58,7 +58,7 @@ export function PhysicsLabPage({ appData }: { appData?: AppData }) {
     || input.motor.launchTorqueUnit === 'unknown';
 
   return (
-    <div className="pl-page">
+    <div className="physics-lab pl-page">
       <h2>Laboratorio Físico</h2>
       <p className="pl-subtitle">
         Módulo experimental · Solo lectura · No modifica vuelos, sesiones ni configuraciones existentes
