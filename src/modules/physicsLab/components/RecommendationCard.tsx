@@ -15,6 +15,7 @@ export function RecommendationCard({ rec }: { rec: PhysicsLabRecommendation }) {
     <div className={`pl-rec-card ${rec.blocked ? 'pl-rec-card--blocked' : ''}`}>
       <div className="pl-rec-card__header">
         <strong>{rec.title}</strong>
+        <span className="pl-rec-conf-label">Confianza operativa:</span>
         <ConfidenceBadge level={rec.confidence} />
         <span className={`pl-risk pl-risk--${rec.riskLevel}`}>{RISK_LABELS[rec.riskLevel]}</span>
       </div>
@@ -27,6 +28,10 @@ export function RecommendationCard({ rec }: { rec: PhysicsLabRecommendation }) {
 
       {!rec.blocked && (
         <p className="pl-rec-card__text">{rec.recommendation}</p>
+      )}
+
+      {rec.operationalNote && (
+        <p className="pl-rec-operational-note">{rec.operationalNote}</p>
       )}
 
       {rec.magnitude && (

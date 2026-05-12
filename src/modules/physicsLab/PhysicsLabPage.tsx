@@ -9,6 +9,7 @@ import { sampleF1MFlight, sampleDanjoF1M } from './data/samplePhysicsData';
 import { PhysicsInputPanel } from './components/PhysicsInputPanel';
 import { PhysicsResultsPanel } from './components/PhysicsResultsPanel';
 import { PhysicalEvidencePanel } from './components/PhysicalEvidencePanel';
+import { PhysicsChartsPanel } from './components/PhysicsChartsPanel';
 import { RecommendationCard } from './components/RecommendationCard';
 import './physicsLab.css';
 
@@ -106,6 +107,7 @@ export function PhysicsLabPage({ appData }: { appData?: AppData }) {
           {result ? (
             <>
               <PhysicsResultsPanel result={result} torqueUnitBlocked={torqueUnitBlocked} />
+              <PhysicsChartsPanel input={input} result={result} torqueUnitBlocked={torqueUnitBlocked} />
               <PhysicalEvidencePanel result={result} />
               {recommendations.length > 0 && (
                 <div>

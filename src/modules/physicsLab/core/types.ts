@@ -80,6 +80,7 @@ export type PhysicsLabResult = {
   energyTotal?: PhysicalValue<number>;
   energyRemaining?: PhysicalValue<number>;
   energyUseRatio?: PhysicalValue<number>;
+  remainingTurnsRatio?: PhysicalValue<number>;
   propellerLoadRatio?: PhysicalValue<number>;
   propellerLoadClass?: PropellerLoadClass;
   assumptions: string[];
@@ -114,6 +115,7 @@ export type PhysicsLabRecommendation = {
   missingData: string[];
   doNotTouch: string[];
   confidence: ConfidenceLevel;
+  operationalNote?: string;
   riskLevel: 'low' | 'medium' | 'high';
   blocked?: boolean;
   blockReason?: string;

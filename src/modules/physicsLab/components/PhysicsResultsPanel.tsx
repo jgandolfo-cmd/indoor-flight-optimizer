@@ -51,7 +51,10 @@ export function PhysicsResultsPanel({
       <h3>Resultados físicos</h3>
 
       <div className="pl-confidence-overall">
-        Confianza global: <ConfidenceBadge level={result.confidence} />
+        Confianza física global: <ConfidenceBadge level={result.confidence} />
+        <span className="pl-confidence-note">
+          (calidad del modelo físico, supuestos y datos disponibles)
+        </span>
       </div>
 
       <table className="pl-table">
@@ -77,7 +80,8 @@ export function PhysicsResultsPanel({
           />
           <ValueRow label="Velocidad vertical media" pv={result.verticalSpeed} />
           <ValueRow label="Potencia requerida aprox." pv={result.requiredPower} />
-          <ValueRow label="Ratio uso de energía" pv={result.energyUseRatio} />
+          <ValueRow label="Remanente de vueltas" pv={result.remainingTurnsRatio} />
+          <ValueRow label="Uso energético estimado*" pv={result.energyUseRatio} />
           <ValueRow label="Ratio carga de hélice" pv={result.propellerLoadRatio} />
         </tbody>
       </table>
@@ -86,6 +90,10 @@ export function PhysicsResultsPanel({
         <div className={`pl-propload pl-propload--${result.propellerLoadClass}`}>
           Absorción de hélice: <strong>{LOAD_CLASS_LABELS[result.propellerLoadClass]}</strong>
         </div>
+      )}
+
+      {result.energyUseRatio && (
+        <p className="pl-energy-note">* Uso energético estimado sin curva torque-vueltas real.</p>
       )}
 
       {result.warnings.length > 0 && (

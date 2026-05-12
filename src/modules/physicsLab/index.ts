@@ -126,6 +126,25 @@ export function analyzePhysicsLab(input: PhysicsLabInput): {
     loadRatio.result,
   ];
 
+  // Remaining turns ratio — direct calculation, no approximation model
+  const motor = input.motor;
+  const netTurns = motor?.turnsLoaded !== undefined && motor?.backoffTurns !== undefined
+    ? Math.max(0, motor.turnsLoaded - motor.backoffTurns)
+    : undefined;
+  const rrValue = netTurns !== undefined && netTurns > 0 && motor?.remainingTurns !== undefined
+    ? Math.min(1, Math.max(0, motor.remainingTurns / netTurns))
+    : undefined;
+  const remainingTurnsRatio: PhysicsLabResult['remainingTurnsRatio'] = rrValue !== undefined
+    ? {
+        value: Math.round(rrValue * 1000) / 1000,
+        unit: '%',
+        provenance: 'calculated',
+        confidence: 'high',
+        source: `${motor?.remainingTurns} / ${netTurns}`,
+        notes: `${(rrValue * 100).toFixed(1)}% de vueltas netas restantes al aterrizar`,
+      }
+    : undefined;
+
   const result: PhysicsLabResult = {
     linearDensity: ldCalc.result,
     initialPower: ipCalc.result,
@@ -133,6 +152,7 @@ export function analyzePhysicsLab(input: PhysicsLabInput): {
     verticalSpeed: vsCalc.result,
     requiredPower: rpCalc.result,
     energyUseRatio: erCalc.result,
+    remainingTurnsRatio,
     propellerLoadRatio: loadRatio.result,
     propellerLoadClass: loadClass,
     assumptions: [...new Set(allAssumptions)],

@@ -32,7 +32,7 @@ export function estimateEnergyRemaining(motor: PhysicsLabInput['motor']): CalcOu
       provenance: 'estimated',
       confidence: 'low',
       source: `1 − √(${remaining}/${netTurns})`,
-      notes: `${(energyUseRatio * 100).toFixed(1)}% de energía utilizada (estimación por modelo cuadrático de goma)`,
+      notes: `${(energyUseRatio * 100).toFixed(1)}% de energía utilizada — modelo aproximado sin curva torque-vueltas`,
       uncertainty: 0.15,
     },
     missing: [],

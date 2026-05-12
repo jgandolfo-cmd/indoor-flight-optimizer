@@ -1,9 +1,30 @@
-import type { PhysicsLabInput, PhysicsLabRecommendation, PhysicsLabResult } from './types';
+import type { ConfidenceLevel, PhysicsLabInput, PhysicsLabRecommendation, PhysicsLabResult, RecommendationTargetVariable } from './types';
 import { analyzeVpData } from './vpObserved';
 import { applyGuards } from './safetyGuards';
 
 function rec(base: Omit<PhysicsLabRecommendation, 'blocked' | 'blockReason'>): PhysicsLabRecommendation {
   return base;
+}
+
+const SAFE_TARGETS: RecommendationTargetVariable[] = ['repeat_baseline', 'measure_more', 'no_change'];
+
+function minConf(a: ConfidenceLevel, b: ConfidenceLevel): ConfidenceLevel {
+  if (a === 'low' || b === 'low') return 'low';
+  if (a === 'medium' || b === 'medium') return 'medium';
+  return 'high';
+}
+
+function applyConfidenceCap(
+  r: PhysicsLabRecommendation,
+  physicalConfidence: ConfidenceLevel,
+): PhysicsLabRecommendation {
+  if (SAFE_TARGETS.includes(r.targetVariable)) {
+    return {
+      ...r,
+      operationalNote: 'Recomendación de bajo riesgo: no modifica la configuración.',
+    };
+  }
+  return { ...r, confidence: minConf(r.confidence, physicalConfidence) };
 }
 
 function isTouchingCeilingEarly(flight: PhysicsLabInput['flight']): boolean {
@@ -247,5 +268,6 @@ export function generateRecommendations(
     }));
   }
 
-  return recommendations;
+  const physicalConfidence = result.confidence;
+  return recommendations.map((r) => applyConfidenceCap(r, physicalConfidence));
 }
