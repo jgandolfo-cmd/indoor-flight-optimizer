@@ -222,7 +222,7 @@
 }
 
 .pl-propload--normal    { background: #f0fdf4; color: #16a34a; border-color: #bbf7d0; }
-.pl-propload--overloaded { background: #fef2f2; color: #dc2626; border-color: #fecaca; }
+.pl-propload--high_absorption { background: #fffbeb; color: #d97706; border-color: #fde68a; }
 .pl-propload--unloaded  { background: #fffbeb; color: #d97706; border-color: #fde68a; }
 
 /* Sections */

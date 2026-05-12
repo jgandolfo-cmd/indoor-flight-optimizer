@@ -63,7 +63,7 @@ export function generateRecommendations(
     ? motor.remainingTurns / netTurns
     : undefined;
   const highRemaining = remainingRatio !== undefined && remainingRatio > 0.18;
-  const rpmFinalLow = result.propellerLoadClass === 'overloaded';
+  const rpmFinalLow = result.propellerLoadClass === 'high_absorption';
   const rpmFinalHigh = result.propellerLoadClass === 'unloaded';
   const touchingCeilingEarly = isTouchingCeilingEarly(flight);
   const stable = isStable(flight);

@@ -69,7 +69,7 @@ export type PhysicsLabInput = {
   };
 };
 
-export type PropellerLoadClass = 'overloaded' | 'normal' | 'unloaded' | 'unknown';
+export type PropellerLoadClass = 'high_absorption' | 'normal' | 'unloaded' | 'unknown';
 
 export type PhysicsLabResult = {
   linearDensity?: PhysicalValue<number>;

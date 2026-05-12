@@ -22,7 +22,7 @@ export function classifyPropellerLoad(flight: PhysicsLabInput['flight']): {
 
   let loadClass: PropellerLoadClass;
   if (ratio > 0.70) {
-    loadClass = 'overloaded';
+    loadClass = 'high_absorption';
   } else if (ratio >= 0.40) {
     loadClass = 'normal';
   } else {

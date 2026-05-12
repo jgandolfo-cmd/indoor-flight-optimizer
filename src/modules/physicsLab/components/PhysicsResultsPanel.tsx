@@ -3,7 +3,7 @@ import type { PhysicsLabResult, PhysicalValue, PropellerLoadClass } from '../cor
 import { ConfidenceBadge } from './ConfidenceBadge';
 
 const LOAD_CLASS_LABELS: Record<Exclude<PropellerLoadClass, 'unknown'>, string> = {
-  overloaded: 'alta absorción',
+  high_absorption: 'absorción alta',
   normal: 'normal',
   unloaded: 'baja absorción',
 };
