@@ -126,6 +126,12 @@ export type TorqueSample = {
   torqueNm: number;
 };
 
+export type ExpectedRecommendation = {
+  shouldRecommend?: string[];
+  shouldNotRecommend?: string[];
+  expectedTargetVariable?: string;
+};
+
 export type CalcOutput<T = number> = {
   result?: PhysicalValue<T>;
   missing: string[];

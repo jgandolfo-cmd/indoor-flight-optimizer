@@ -1,10 +1,10 @@
-import type { AircraftCategory, PhysicsLabInput } from '../core/types';
+import type { AircraftCategory, ExpectedRecommendation, PhysicsLabInput } from '../core/types';
 
 export type CaseMetadata = {
   id?: string;
   label?: string;
   sourceType?: string;
-  expected?: unknown;
+  expected?: ExpectedRecommendation;
 };
 
 export type NormalizeSuccess = {
@@ -165,7 +165,7 @@ function extractMetadata(raw: Record<string, unknown>): CaseMetadata {
     id: sanitizeString(raw['id']),
     label: sanitizeString(raw['label']),
     sourceType: sanitizeString(raw['sourceType']),
-    expected: raw['expected'],
+    expected: raw['expected'] as import('../core/types').ExpectedRecommendation | undefined,
   };
 }
 

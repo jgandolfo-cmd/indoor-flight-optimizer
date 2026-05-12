@@ -6,6 +6,29 @@ function rec(base: Omit<PhysicsLabRecommendation, 'blocked' | 'blockReason'>): P
   return base;
 }
 
+const PROP_LOAD_LABEL: Record<string, string> = {
+  high_absorption: 'absorción alta',
+  normal: 'normal',
+  unloaded: 'baja absorción',
+  unknown: 'desconocida',
+};
+
+const STABILITY_LABEL: Record<string, string> = {
+  stable: 'estable',
+  estable: 'estable',
+  oscillating: 'oscilante',
+  stalling: 'colgadas',
+  diving: 'picado',
+};
+
+function propLoadLabel(cls: string | undefined) {
+  return cls ? (PROP_LOAD_LABEL[cls] ?? cls) : '—';
+}
+
+function stabilityLabel(s: string | undefined) {
+  return s ? (STABILITY_LABEL[s] ?? s) : 'no registrada';
+}
+
 const SAFE_TARGETS: RecommendationTargetVariable[] = ['repeat_baseline', 'measure_more', 'no_change'];
 
 function minConf(a: ConfidenceLevel, b: ConfidenceLevel): ConfidenceLevel {
@@ -97,7 +120,7 @@ export function generateRecommendations(
       targetVariable: 'trim',
       direction: 'inspect',
       rationale: ['La inestabilidad domina la lectura. Un vuelo inestable no permite interpretar el uso de energía.'],
-      evidenceUsed: [`estabilidad: ${flight?.stability ?? 'desconocida'}`],
+      evidenceUsed: [`estabilidad: ${stabilityLabel(flight?.stability)}`],
       assumptionsUsed: [],
       missingData: [],
       doNotTouch: ['motor', 'hélice', 'vueltas cargadas', 'back-off'],
@@ -128,9 +151,9 @@ export function generateRecommendations(
         'Hay energía concentrada al inicio que excede la altura disponible.',
       ],
       evidenceUsed: [
-        `timeToMaxAltitude: ${flight?.timeToMaxAltitudeSec ?? 'no registrado'} s`,
-        `durationSec: ${flight?.durationSec ?? 'no registrado'} s`,
-        `touchedCeiling: ${String(flight?.touchedCeiling ?? 'no')}`,
+        `tiempo hasta altitud máxima: ${flight?.timeToMaxAltitudeSec ?? 'no registrado'} s`,
+        `duración: ${flight?.durationSec ?? 'no registrado'} s`,
+        `toca techo: ${String(flight?.touchedCeiling ?? 'no')}`,
       ],
       assumptionsUsed: [],
       missingData: [],
@@ -153,7 +176,7 @@ export function generateRecommendations(
     const currentMinPitch = input.propeller?.minPitchMm;
     const suggestedMinPitch = currentMinPitch ? Math.round(currentMinPitch * 0.96) : undefined;
     const magnitude = hasMinPitch && currentMinPitch
-      ? `minPitch ${currentMinPitch} → ${suggestedMinPitch} mm (−4%)`
+      ? `paso mínimo ${currentMinPitch} → ${suggestedMinPitch} mm (−4%)`
       : 'inspeccionar fricción o reducir paso mínimo levemente';
 
     recommendations.push(applyGuards(rec({
@@ -169,8 +192,8 @@ export function generateRecommendations(
         'Probable causa: paso mínimo VP demasiado alto o fricción mecánica.',
       ],
       evidenceUsed: [
-        `remainingRatio: ${remainingRatio !== undefined ? (remainingRatio * 100).toFixed(1) : '—'}%`,
-        `propellerLoadClass: ${result.propellerLoadClass ?? '—'}`,
+        `remanente de vueltas: ${remainingRatio !== undefined ? (remainingRatio * 100).toFixed(1) : '—'}%`,
+        `absorción de hélice: ${propLoadLabel(result.propellerLoadClass)}`,
         `RPM final: ${flight?.rpmFinal ?? '—'}`,
       ],
       assumptionsUsed: [],
@@ -194,7 +217,7 @@ export function generateRecommendations(
     const currentMinPitch = input.propeller?.minPitchMm;
     const suggestedMinPitch = currentMinPitch ? Math.round(currentMinPitch * 1.03) : undefined;
     const magnitude = hasMinPitch && currentMinPitch
-      ? `minPitch ${currentMinPitch} → ${suggestedMinPitch} mm (+3%)`
+      ? `paso mínimo ${currentMinPitch} → ${suggestedMinPitch} mm (+3%)`
       : '+2% a +4% en paso mínimo';
 
     recommendations.push(applyGuards(rec({
@@ -208,8 +231,8 @@ export function generateRecommendations(
         'La hélice no está convirtiendo la energía disponible en empuje útil.',
       ],
       evidenceUsed: [
-        `remainingRatio: ${remainingRatio !== undefined ? (remainingRatio * 100).toFixed(1) : '—'}%`,
-        `propellerLoadClass: ${result.propellerLoadClass ?? '—'}`,
+        `remanente de vueltas: ${remainingRatio !== undefined ? (remainingRatio * 100).toFixed(1) : '—'}%`,
+        `absorción de hélice: ${propLoadLabel(result.propellerLoadClass)}`,
         `RPM final: ${flight?.rpmFinal ?? '—'}`,
       ],
       assumptionsUsed: [],
@@ -231,7 +254,7 @@ export function generateRecommendations(
     && recommendations.length === 0
   ) {
     recommendations.push(rec({
-      title: 'Configuración razonable — repetir baseline',
+      title: 'Configuración razonable — repetir configuración base',
       recommendation: 'El perfil energético parece equilibrado. Repetir con la misma configuración para confirmar.',
       targetVariable: 'repeat_baseline',
       direction: 'repeat',
@@ -240,8 +263,8 @@ export function generateRecommendations(
         'Vuelo estable: la lectura es confiable.',
       ],
       evidenceUsed: [
-        `energyUseRatio: ${result.energyUseRatio ? (result.energyUseRatio.value * 100).toFixed(1) : '—'}%`,
-        `remainingRatio: ${remainingRatio !== undefined ? (remainingRatio * 100).toFixed(1) : '—'}%`,
+        `uso energético estimado: ${result.energyUseRatio ? (result.energyUseRatio.value * 100).toFixed(1) : '—'}%`,
+        `remanente de vueltas: ${remainingRatio !== undefined ? (remainingRatio * 100).toFixed(1) : '—'}%`,
         `estabilidad: ${flight?.stability ?? 'no registrada'}`,
       ],
       assumptionsUsed: result.assumptions,
