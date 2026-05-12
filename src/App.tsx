@@ -7,6 +7,7 @@ import {
   Dumbbell,
   FileDown,
   FileUp,
+  FlaskConical,
   Gauge,
   HardDrive,
   Home,
@@ -18,6 +19,7 @@ import {
   RotateCcw,
   Save,
 } from 'lucide-react';
+import { PhysicsLabPage } from './modules/physicsLab/PhysicsLabPage';
 import { calculateFlightMetrics, calculateModelGeometry, validateFlightInputs, validateModelF1M, validateMotorF1M } from './domain/calculations';
 import { diagnoseFlight } from './domain/diagnosis';
 import { exportAppDataJson, flightsToCsv, downloadTextFile } from './domain/exporters';
@@ -58,7 +60,7 @@ import { loadDataFromDrive, loadGoogleUserProfile, requestDriveAccessToken, save
 import { loadAppData, resetAppData, saveAppData } from './storage/localStorage';
 import logoUrl from '../img/logo.claro.png';
 
-type View = 'dashboard' | 'session' | 'venues' | 'models' | 'propellers' | 'rubber' | 'motors' | 'flights' | 'diagnosis' | 'charts' | 'optimals';
+type View = 'dashboard' | 'session' | 'venues' | 'models' | 'propellers' | 'rubber' | 'motors' | 'flights' | 'diagnosis' | 'charts' | 'optimals' | 'physics_lab';
 
 const navItems: Array<{ id: View; label: string; Icon: typeof Home }> = [
   { id: 'dashboard', label: 'Tablero', Icon: Home },
@@ -72,6 +74,7 @@ const navItems: Array<{ id: View; label: string; Icon: typeof Home }> = [
   { id: 'diagnosis', label: 'Diagnostico', Icon: Gauge },
   { id: 'charts', label: 'Graficas', Icon: LineChart },
   { id: 'optimals', label: 'Optimos', Icon: Save },
+  { id: 'physics_lab', label: 'Módulo físico', Icon: FlaskConical },
 ];
 
 const makeId = (prefix: string) => `${prefix}-${crypto.randomUUID()}`;
@@ -384,6 +387,7 @@ function App() {
         {view === 'diagnosis' && <DiagnosisView data={data} findVenue={findVenue} findModel={findModel} findMotor={findMotor} />}
         {view === 'charts' && <ChartsView data={data} findVenue={findVenue} findModel={findModel} findMotor={findMotor} />}
         {view === 'optimals' && <OptimalsView data={data} onChange={setDataWithMessage} findVenue={findVenue} findModel={findModel} findMotor={findMotor} />}
+        {view === 'physics_lab' && <PhysicsLabPage appData={data} />}
       </main>
     </div>
   );

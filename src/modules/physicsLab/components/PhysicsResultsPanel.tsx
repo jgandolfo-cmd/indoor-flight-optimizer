@@ -1,0 +1,95 @@
+import type * as React from 'react';
+import type { PhysicsLabResult, PhysicalValue } from '../core/types';
+import { ConfidenceBadge } from './ConfidenceBadge';
+
+function ValueRow({ label, pv, blocked }: {
+  label: string;
+  pv?: PhysicalValue<number>;
+  blocked?: string;
+}) {
+  if (blocked) {
+    return (
+      <tr>
+        <td>{label}</td>
+        <td className="pl-value--blocked" colSpan={3}>{blocked}</td>
+      </tr>
+    );
+  }
+  if (!pv) {
+    return (
+      <tr>
+        <td>{label}</td>
+        <td colSpan={3} className="pl-value--missing">—</td>
+      </tr>
+    );
+  }
+  return (
+    <tr>
+      <td>{label}</td>
+      <td><strong>{pv.value.toFixed(4)}</strong> {pv.unit}</td>
+      <td><ConfidenceBadge level={pv.confidence} /></td>
+      <td className="pl-value--source">{pv.source ?? pv.notes ?? ''}</td>
+    </tr>
+  );
+}
+
+export function PhysicsResultsPanel({
+  result,
+  torqueUnitBlocked,
+}: {
+  result: PhysicsLabResult;
+  torqueUnitBlocked?: boolean;
+}) {
+  return (
+    <div className="pl-results">
+      <h3>Resultados físicos</h3>
+
+      <div className="pl-confidence-overall">
+        Confianza global: <ConfidenceBadge level={result.confidence} />
+      </div>
+
+      <table className="pl-table">
+        <thead>
+          <tr>
+            <th>Magnitud</th>
+            <th>Valor</th>
+            <th>Confianza</th>
+            <th>Fuente</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ValueRow label="Densidad lineal" pv={result.linearDensity} />
+          <ValueRow
+            label="Potencia inicial"
+            pv={result.initialPower}
+            blocked={torqueUnitBlocked ? 'Unidad de torque no verificada — no se calcula potencia' : undefined}
+          />
+          <ValueRow
+            label="Potencia media (estimada)"
+            pv={result.averagePower}
+            blocked={torqueUnitBlocked ? 'Depende de potencia inicial bloqueada' : undefined}
+          />
+          <ValueRow label="Velocidad vertical media" pv={result.verticalSpeed} />
+          <ValueRow label="Potencia requerida aprox." pv={result.requiredPower} />
+          <ValueRow label="Ratio uso de energía" pv={result.energyUseRatio} />
+          <ValueRow label="Ratio carga de hélice" pv={result.propellerLoadRatio} />
+        </tbody>
+      </table>
+
+      {result.propellerLoadClass && result.propellerLoadClass !== 'unknown' && (
+        <div className={`pl-propload pl-propload--${result.propellerLoadClass}`}>
+          Hélice: <strong>{result.propellerLoadClass}</strong>
+        </div>
+      )}
+
+      {result.warnings.length > 0 && (
+        <div className="pl-section pl-section--warnings">
+          <h4>Advertencias</h4>
+          <ul>
+            {result.warnings.map((w) => <li key={w}>{w}</li>)}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+}
